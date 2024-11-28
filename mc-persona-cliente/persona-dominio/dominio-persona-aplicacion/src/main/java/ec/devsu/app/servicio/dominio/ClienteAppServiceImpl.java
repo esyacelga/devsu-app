@@ -20,7 +20,7 @@ public class ClienteAppServiceImpl implements IClienteAppService {
     private final ClientePersistCommandHandler clienteCreateCommandHandler;
     private final ClienteQueryCommandHandler clienteQueryCommandHandler;
 
-    public ClienteAppServiceImpl(ClientePersistCommandHandler clienteCreateCommandHandler, ClienteQueryCommandHandler clienteQueryCommandHandler,
+    public ClienteAppServiceImpl(ClientePersistCommandHandler clienteCreateCommandHandler,
                                  ClienteQueryCommandHandler clienteQueryCommandHandler1) {
         this.clienteCreateCommandHandler = clienteCreateCommandHandler;
         this.clienteQueryCommandHandler = clienteQueryCommandHandler1;
