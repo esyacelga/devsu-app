@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/persona-acceso-datos/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/persona-aplicacion/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/persona-contenedor/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/persona-dominio/dominio-persona-aplicacion/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/persona-dominio/dominio-persona-nucleo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/persona-dominio/dominio-pesona-nucleo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/persona-dominio/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/persona-dominio/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/persona-mensaje/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-persona-cliente/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-transacciones/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-transacciones/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-transacciones/transacciones-acceso-datos/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-transacciones/transacciones-aplicacion/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-transacciones/transacciones-contenedor/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-transacciones/transacciones-dominio/dominio-transacciones-aplicacion/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-transacciones/transacciones-dominio/dominio-transacciones-nucleo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-transacciones/transacciones-dominio/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mc-transacciones/transacciones-dominio/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modulo-comun/comun-acceso-datos/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modulo-comun/comun-aplicacion/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modulo-comun/comun-dominio/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modulo-comun/comun-infraestructura/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modulo-comun/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modulo-comun/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
