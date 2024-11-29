@@ -42,8 +42,8 @@ public class ClienteAppServiceImpl implements IClienteAppService {
     }
 
     @Override
-    public ResponseClientePersona buscarClientePorId(UUID uuidCliente) {
-        return clienteQueryCommandHandler.buscarClientePorId(uuidCliente);
+    public ResponseClientePersona buscarClientePorId(String uuidCliente) {
+        return clienteQueryCommandHandler.buscarClientePorId(UUID.fromString(uuidCliente));
     }
 
 

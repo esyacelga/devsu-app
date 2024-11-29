@@ -2,7 +2,6 @@ package ec.devsu.app.servicio.dominio.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -14,16 +13,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestPersona {
+    private UUID uuidPersona;
     @NotNull
-    private  String nombre;
+    private String nombre;
     @NotNull
-    private  String genero;
+    private String genero;
     @NotNull
-    private  String edad;
+    private String edad;
     @NotNull
-    private  String identificacion;
+    private String identificacion;
     @NotNull
-    private  String direccion;
+    private String direccion;
     @NotNull
-    private  String telefono;
+    private String telefono;
 }

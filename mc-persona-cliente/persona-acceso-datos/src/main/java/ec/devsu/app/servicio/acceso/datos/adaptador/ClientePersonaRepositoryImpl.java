@@ -8,6 +8,7 @@ import ec.devsu.app.servicio.dominio.dto.ClienteDto;
 import ec.devsu.app.servicio.dominio.puertos.output.IClientePersonaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -23,12 +24,16 @@ public class ClientePersonaRepositoryImpl implements IClientePersonaRepository {
 
 
     @Override
-    public ClienteDto buscarClientePorId(UUID uuidCliente) {
-        Cliente cliente = clientePersonaRepository.buscarPorId(uuidCliente);
-        return ClienteDto.builder()
-                .uuidCliente(uuidCliente)
-                .estado(cliente.getEstado())
-                .build();
+    public Optional<ClienteDto> buscarClientePorId(UUID uuidCliente) {
+        return clientePersonaRepository.buscarPorId(uuidCliente)
+                .map(cliente -> ClienteDto.builder()
+                        .uuidCliente(uuidCliente)
+                        .estado(cliente.getEstado())
+                        .identificacion(cliente.getPersona().getIdentificacion())
+                        .nombre(cliente.getPersona().getNombre())
+                        .password(cliente.getContrasenia())
+                        .edad(cliente.getPersona().getEdad())
+                        .build());
     }
 
     @Override

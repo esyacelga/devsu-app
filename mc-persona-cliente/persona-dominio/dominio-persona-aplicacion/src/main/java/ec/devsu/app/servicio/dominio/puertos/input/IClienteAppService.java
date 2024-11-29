@@ -12,7 +12,9 @@ public interface IClienteAppService {
     ResponseCliente insertarCliente(@Valid RequestCliente cliente);
 
     ResponseCliente updateCliente(@Valid UUID idCliente, RequestCliente cliente);
-    ResponseClientePersona buscarClientePorId(@Valid UUID uuidCliente);
+    ResponseClientePersona buscarClientePorId(@Valid String idCliente);
+
+
     void elimininarCliente(@Valid UUID uuidCliente);
 
 

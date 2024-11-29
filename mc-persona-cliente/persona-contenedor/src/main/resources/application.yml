@@ -1,11 +1,21 @@
 server:
   port: 8181
+  error:
+    whitelabel:
+      enabled: false
 
 logging:
   level:
-    com.food.ordering.system: DEBUG
+    ec.devsu.app: DEBUG
 
 spring:
+  mvc:
+    view:
+      prefix: ""  # Evita que Spring busque vistas en rutas específicas
+      suffix: ""
+  web:
+    resources:
+      add-mappings: false
   jpa:
     hibernate:
       ddl-auto: update

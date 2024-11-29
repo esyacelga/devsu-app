@@ -33,6 +33,10 @@
            <groupId>app.devsu.ec</groupId>
            <artifactId>dominio-transacciones-nucleo</artifactId>
        </dependency>
+       <dependency>
+           <groupId>jakarta.persistence</groupId>
+           <artifactId>jakarta.persistence-api</artifactId>
+       </dependency>
    </dependencies>
 
 </project>

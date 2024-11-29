@@ -1,7 +1,7 @@
 package ec.devsu.app.servicio.dominio.helpers;
 
-import ec.devsu.app.servicio.dominio.dto.ClienteDto;
 import ec.devsu.app.servicio.dominio.dto.response.ResponseClientePersona;
+import ec.devsu.app.servicio.dominio.exception.PersonaDomainException;
 import ec.devsu.app.servicio.dominio.puertos.output.IClientePersonaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,14 +18,17 @@ public class ClienteQueryHelper {
     }
 
     public ResponseClientePersona buscarClientePorId(UUID uuidCliente) {
-        ClienteDto cl = clientePersonaRepository.buscarClientePorId(uuidCliente);
-        return ResponseClientePersona.builder()
-                .estado(cl.getEstado())
-                .identificacion(cl.getIdentificacion())
-                .genero(cl.getGenero())
-                .edad(cl.getEdad())
-                .nombre(cl.getNombre())
-                .telefono(cl.getTelefono())
-                .build();
+        throw new PersonaDomainException("*****");
+      /*  return clientePersonaRepository.buscarClientePorId(uuidCliente)
+                .map(cl -> ResponseClientePersona.builder()
+                        .estado(cl.getEstado())
+                        .identificacion(cl.getIdentificacion())
+                        .genero(cl.getGenero())
+                        .uuidPersona(cl.getUuidCliente())
+                        .edad(cl.getEdad())
+                        .nombre(cl.getNombre())
+                        .telefono(cl.getTelefono())
+                        .build())
+                .orElseThrow(() -> new PersonaDomainException("Cliente con UUID " + uuidCliente + " no encontrado"));*/
     }
 }

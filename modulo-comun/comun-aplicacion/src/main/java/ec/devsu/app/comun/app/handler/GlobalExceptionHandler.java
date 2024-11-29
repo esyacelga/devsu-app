@@ -1,23 +1,29 @@
 package ec.devsu.app.comun.app.handler;
 
 import ec.devsu.app.servicio.dominio.exception.PersonaDomainException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
 
 
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
-
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleEntityNotFoundException(EntityNotFoundException ex) {
+        log.error("Error manejado: {}", ex.getMessage());
+        return ErrorDTO.builder()
+                .code(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .message(ex.getMessage())
+                .build();
+    }
 
     @ResponseBody
     @ExceptionHandler(value = {Exception.class})
@@ -30,10 +36,9 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
-    @ResponseBody
-    @ExceptionHandler(value = {PersonaDomainException.class})
+    @ExceptionHandler(PersonaDomainException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorDTO handlePoaDomainException(ValidationException ex) {
+    public ErrorDTO handlePersonaDomainException(PersonaDomainException ex) {
         log.error(ex.getMessage(), ex);
         return ErrorDTO.builder()
                 .code(HttpStatus.CONFLICT.getReasonPhrase())

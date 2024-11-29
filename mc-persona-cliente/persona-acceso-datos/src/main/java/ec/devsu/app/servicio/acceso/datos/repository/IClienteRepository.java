@@ -2,10 +2,11 @@ package ec.devsu.app.servicio.acceso.datos.repository;
 
 import ec.devsu.app.servicio.acceso.datos.entity.Cliente;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface IClienteRepository {
-    Cliente buscarPorId(UUID uuid);
+    Optional<Cliente> buscarPorId(UUID uuid);
 
     Cliente actualizar(UUID uuid, Cliente cliente);
 

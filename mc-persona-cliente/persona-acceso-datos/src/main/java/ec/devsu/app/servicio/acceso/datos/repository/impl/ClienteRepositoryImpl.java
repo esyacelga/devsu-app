@@ -9,6 +9,7 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -17,8 +18,9 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     private EntityManager entityManager;
 
     @Override
-    public Cliente buscarPorId(UUID uuid) {
-        return entityManager.find(Cliente.class, uuid);
+    public Optional<Cliente> buscarPorId(UUID uuid) {
+        Cliente cliente = entityManager.find(Cliente.class, uuid);
+        return Optional.ofNullable(cliente);
     }
 
     @Override
