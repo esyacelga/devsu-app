@@ -7,13 +7,14 @@ import java.util.UUID;
 
 public interface IClientePersonaRepository {
     Optional<ClienteDto> buscarClientePorId(UUID uuidCliente);
+
     ClienteDto buscarClientePorIdentificacion(String identificacion);
 
     void eliminarCliente(UUID uuidCliente);
 
     ClienteDto insertarCliente(ClienteDto clienteDto);
 
-
+    ClienteDto actualizarCliente(UUID uuidCliente, ClienteDto clienteDto);
 
 
 }

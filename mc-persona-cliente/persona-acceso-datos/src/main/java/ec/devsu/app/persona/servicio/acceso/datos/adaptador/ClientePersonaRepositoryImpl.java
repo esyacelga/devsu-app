@@ -1,9 +1,9 @@
 package ec.devsu.app.persona.servicio.acceso.datos.adaptador;
 
-import ec.devsu.app.persona.servicio.acceso.datos.repository.IClienteRepository;
-import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import ec.devsu.app.persona.servicio.acceso.datos.entity.Cliente;
 import ec.devsu.app.persona.servicio.acceso.datos.entity.Persona;
+import ec.devsu.app.persona.servicio.acceso.datos.repository.IClienteRepository;
+import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import ec.devsu.app.persona.servicio.dominio.dto.ClienteDto;
 import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
 import org.springframework.stereotype.Component;
@@ -76,6 +76,15 @@ public class ClientePersonaRepositoryImpl implements IClientePersonaRepository {
         return ClienteDto.builder()
                 .nombre(persona.getNombre())
                 .telefono(persona.getTelefono())
+                .build();
+    }
+
+    @Override
+    public ClienteDto actualizarCliente(UUID uuidCliente, ClienteDto clienteDto) {
+        Cliente cl = clientePersonaRepository.actualizar(uuidCliente, Cliente.builder().build());
+        return ClienteDto.builder()
+                .uuidCliente(cl.getClienteid())
+                .estado(cl.getEstado())
                 .build();
     }
 

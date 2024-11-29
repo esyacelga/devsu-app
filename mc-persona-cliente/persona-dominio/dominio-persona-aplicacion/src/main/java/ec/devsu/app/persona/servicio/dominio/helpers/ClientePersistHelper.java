@@ -42,7 +42,7 @@ public class ClientePersistHelper {
     }
 
     public ResponseCliente updateCliente(UUID idCliente, RequestCliente cliente) {
-        ClienteDto cl = clientePersonaRepository.insertarCliente(ClienteDto.builder()
+        ClienteDto cl = clientePersonaRepository.actualizarCliente(idCliente,ClienteDto.builder()
                 .direccion(cliente.getDireccion())
                 .genero(cliente.getGenero())
                 .nombre(cliente.getNombre())
