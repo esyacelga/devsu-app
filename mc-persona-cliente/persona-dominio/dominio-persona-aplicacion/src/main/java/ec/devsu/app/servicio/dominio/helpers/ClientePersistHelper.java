@@ -6,6 +6,7 @@ import ec.devsu.app.servicio.dominio.dto.response.ResponseCliente;
 import ec.devsu.app.servicio.dominio.puertos.output.IClientePersonaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -18,11 +19,15 @@ public class ClientePersistHelper {
         this.clientePersonaRepository = clientePersonaRepository;
     }
 
+    @Transactional
     public ResponseCliente insertarCliente(RequestCliente cliente) {
         ClienteDto cl = clientePersonaRepository.insertarCliente(ClienteDto.builder()
                 .direccion(cliente.getDireccion())
                 .genero(cliente.getGenero())
                 .nombre(cliente.getNombre())
+                .password(cliente.getContrasenia())
+                .edad(cliente.getEdad())
+                .direccion(cliente.getDireccion())
                 .telefono(cliente.getTelefono())
                 .identificacion(cliente.getIdentificacion())
                 .estado("1").build());

@@ -1,0 +1,20 @@
+server:
+  port: 8181
+
+logging:
+  level:
+    com.food.ordering.system: DEBUG
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/devsu
+    username: postgres
+    password: seya1922
+    driver-class-name: org.postgresql.Driver
+
