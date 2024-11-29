@@ -1,6 +1,6 @@
 package ec.devsu.app.comun.app.handler;
 
-import ec.devsu.app.servicio.dominio.exception.PersonaDomainException;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

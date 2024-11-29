@@ -1,10 +1,10 @@
 package ec.devsu.app.servicio.dominio;
 
-import ec.devsu.app.servicio.dominio.dto.ClienteDto;
-import ec.devsu.app.servicio.dominio.dto.request.RequestCliente;
-import ec.devsu.app.servicio.dominio.dto.response.ResponseCliente;
-import ec.devsu.app.servicio.dominio.puertos.input.IClienteAppService;
-import ec.devsu.app.servicio.dominio.puertos.output.IClientePersonaRepository;
+import ec.devsu.app.persona.servicio.dominio.dto.ClienteDto;
+import ec.devsu.app.persona.servicio.dominio.dto.request.RequestCliente;
+import ec.devsu.app.persona.servicio.dominio.dto.response.ResponseCliente;
+import ec.devsu.app.persona.servicio.dominio.puertos.input.IClienteAppService;
+import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

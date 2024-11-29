@@ -1,6 +1,6 @@
 package ec.devsu.app.servicio.dominio;
 
-import ec.devsu.app.servicio.dominio.puertos.output.IClientePersonaRepository;
+import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
 import org.mockito.Mockito;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
