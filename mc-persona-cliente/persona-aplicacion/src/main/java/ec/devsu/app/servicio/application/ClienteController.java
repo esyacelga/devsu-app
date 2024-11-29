@@ -10,16 +10,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(produces = "application/json")
+@RequestMapping(value = "/clientes", produces = "application/json")
 @RequiredArgsConstructor
 public class ClienteController {
 
     private final IClienteAppService clienteAppService;
 
+    @PostMapping("/")
+    public ResponseEntity<ResponseCliente> insertarSolicitud(@RequestBody RequestCliente cliente) {
+        return ResponseEntity.ok(clienteAppService.insertarCliente(cliente));
+    }
 
 
-
-    @GetMapping("/clientes/{idCliente}")
+    @GetMapping("/{idCliente}")
     public ResponseEntity<ResponseClientePersona> buscarClientePorID(@PathVariable String idCliente) {
         return ResponseEntity.ok(clienteAppService.buscarClientePorId(idCliente));
 

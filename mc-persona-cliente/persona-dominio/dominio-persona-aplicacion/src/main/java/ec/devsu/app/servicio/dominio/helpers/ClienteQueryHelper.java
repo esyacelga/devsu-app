@@ -18,8 +18,7 @@ public class ClienteQueryHelper {
     }
 
     public ResponseClientePersona buscarClientePorId(UUID uuidCliente) {
-        throw new PersonaDomainException("*****");
-      /*  return clientePersonaRepository.buscarClientePorId(uuidCliente)
+        return clientePersonaRepository.buscarClientePorId(uuidCliente)
                 .map(cl -> ResponseClientePersona.builder()
                         .estado(cl.getEstado())
                         .identificacion(cl.getIdentificacion())
@@ -29,6 +28,6 @@ public class ClienteQueryHelper {
                         .nombre(cl.getNombre())
                         .telefono(cl.getTelefono())
                         .build())
-                .orElseThrow(() -> new PersonaDomainException("Cliente con UUID " + uuidCliente + " no encontrado"));*/
+                .orElseThrow(() -> new PersonaDomainException("Cliente con UUID " + uuidCliente + " no encontrado"));
     }
 }
