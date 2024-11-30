@@ -1,18 +1,24 @@
 package ec.devsu.app.persona.servicio.dominio.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.UUID;
 
 @Getter
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonaDto {
-    private  String nombre;
-    private  String genero;
-    private  String edad;
-    private  String identificacion;
-    private  String direccion;
-    private  String telefono;
+    private UUID uuidPersona;
+    private UUID uuidCliente;
+    private String nombre;
+    private String genero;
+    private String edad;
+    private String identificacion;
+    private String direccion;
+    private String telefono;
 
 }

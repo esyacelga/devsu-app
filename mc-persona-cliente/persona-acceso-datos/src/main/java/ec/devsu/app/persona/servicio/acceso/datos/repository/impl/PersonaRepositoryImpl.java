@@ -1,5 +1,6 @@
 package ec.devsu.app.persona.servicio.acceso.datos.repository.impl;
 
+import ec.devsu.app.persona.servicio.acceso.datos.entity.Cliente;
 import ec.devsu.app.persona.servicio.acceso.datos.entity.Persona;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import jakarta.persistence.EntityManager;
@@ -22,6 +23,16 @@ public class PersonaRepositoryImpl implements IPersonaRepository {
         entityManager.persist(persona);
         return persona;
 
+    }
+
+    @Override
+    public Persona actualizarPersona(Persona persona) {
+        entityManager.createQuery(
+                        "UPDATE Persona p SET p.nombre = :nombre WHERE p.id = :personaId")
+                .setParameter("nombre", persona.getNombre())
+                .setParameter("personaId", persona.getId())
+                .executeUpdate();
+        return entityManager.merge(persona);
     }
 
     @Override

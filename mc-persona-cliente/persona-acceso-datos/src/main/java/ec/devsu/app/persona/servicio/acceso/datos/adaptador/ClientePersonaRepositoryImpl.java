@@ -32,6 +32,7 @@ public class ClientePersonaRepositoryImpl implements IClientePersonaRepository {
                 .map(cliente -> ClienteDto.builder()
                         .uuidCliente(uuidCliente)
                         .estado(cliente.getEstado())
+                        .uuidPersona(cliente.getPersona().getId())
                         .genero(cliente.getPersona().getGenero())
                         .direccion(cliente.getPersona().getDireccion())
                         .telefono(cliente.getPersona().getTelefono())

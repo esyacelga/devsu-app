@@ -10,6 +10,8 @@ public interface IPersonaRepository {
 
     Persona insertarPersona(Persona persona)  ;
 
+    Persona actualizarPersona(Persona persona)  ;
+
     void eliminarPersona(UUID uuid);
 
     Persona buscarPersonaPorIdentificacion(String identificacion);
