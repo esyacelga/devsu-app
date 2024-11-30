@@ -2,6 +2,7 @@ package ec.devsu.app.persona.servicio.dominio.helpers;
 
 import ec.devsu.app.persona.servicio.dominio.dto.response.ResponseClientePersona;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
 import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -29,6 +30,6 @@ public class ClienteQueryHelper {
                         .nombre(cl.getNombre())
                         .telefono(cl.getTelefono())
                         .build())
-                .orElseThrow(() -> new PersonaDomainException("Cliente con UUID " + uuidCliente + " no encontrado"));
+                .orElseThrow(() -> new PersonaNotFoundDomainException("Cliente con UUID " + uuidCliente + " no encontrado"));
     }
 }

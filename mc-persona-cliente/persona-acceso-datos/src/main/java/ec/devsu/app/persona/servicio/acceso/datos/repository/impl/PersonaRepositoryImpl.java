@@ -4,6 +4,7 @@ import ec.devsu.app.persona.servicio.acceso.datos.entity.Persona;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
@@ -15,9 +16,14 @@ public class PersonaRepositoryImpl implements IPersonaRepository {
 
 
     @Override
-    public Persona insertarPersona(Persona persona) {
+    public Persona insertarPersona(Persona persona) throws ConstraintViolationException {
         persona.getCliente().setPersona(persona);
-        entityManager.persist(persona);
+        try {
+            entityManager.persist(persona);
+        } catch (Exception ex) {
+            throw new ConstraintViolationException("Violación de restricciones: " + ex.getMessage());
+        }
+
         return persona;
     }
 

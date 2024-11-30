@@ -24,17 +24,14 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     }
 
     @Override
-    public Cliente actualizar(UUID uuid, Cliente cliente) {
+    public Cliente actualizar(UUID uuid, Cliente cliente) throws EntityNotFoundException {
         Cliente clienteExistente = entityManager.find(Cliente.class, uuid);
-
         if (clienteExistente == null) {
             throw new EntityNotFoundException("Cliente con UUID " + uuid + " no encontrado.");
         }
-
         clienteExistente.setContrasenia(cliente.getContrasenia());
         clienteExistente.setEstado(cliente.getEstado());
         clienteExistente.setPersona(cliente.getPersona());
-
         entityManager.merge(clienteExistente);
         return clienteExistente;
     }
@@ -46,8 +43,10 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     }
 
     @Override
-    public void eliminarCliente(UUID clienteId) {
+    public void eliminarCliente(UUID clienteId) throws EntityNotFoundException {
         Cliente cliente = entityManager.find(Cliente.class, clienteId);
+        if (cliente == null)
+            throw new EntityNotFoundException("El recurso solicitado no existe");
         entityManager.remove(cliente);
     }
 

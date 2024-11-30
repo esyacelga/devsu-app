@@ -1,13 +1,18 @@
 package ec.devsu.app.comun.app.handler;
 
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaConstrainViolationException;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.stream.Collectors;
 
@@ -46,6 +51,24 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
+    @ExceptionHandler(PersonaConstrainViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorDTO handlePersonaConstrainViolationException(PersonaConstrainViolationException ex) {
+        log.error(ex.getMessage(), ex);
+        return ErrorDTO.builder()
+                .code(HttpStatus.CONFLICT.getReasonPhrase())
+                .message(ex.getMessage())
+                .build();
+    }
+    @ExceptionHandler(PersonaNotFoundDomainException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handlePersonaNotFoundDomainException(PersonaNotFoundDomainException ex) {
+        log.error(ex.getMessage(), ex);
+        return ErrorDTO.builder()
+                .code(HttpStatus.CONFLICT.getReasonPhrase())
+                .message(ex.getMessage())
+                .build();
+    }
 
 
     @ResponseBody
