@@ -6,15 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Builder
 @AllArgsConstructor
 public class RequestCuenta {
-
     @NotNull
     private final String identificacion;
     @NotNull
     private final TipoCuenta tipoCuenta;
-
-
+    @NotNull
+    private final BigDecimal saldo;
 }

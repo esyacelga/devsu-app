@@ -1,10 +1,15 @@
 package ec.devsu.app.transacciones.servicio.dominio;
 
 import ec.devsu.app.excepcion.comun.dominio.valor.TipoCuenta;
+import ec.devsu.app.excepcion.comun.dominio.valor.TipoMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
+import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActualizacion;
+import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
+import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.input.ITransaccionesAppService;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaRepository;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ITransaccionesRepository;
@@ -19,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -36,7 +42,6 @@ public class TransaccionAppTest {
 
     @Autowired
     ICuentaRepository cuentaRepository;
-
 
 
     @Test
@@ -88,6 +93,38 @@ public class TransaccionAppTest {
                 .build());
         assertEquals("Cuenta actualizada exitosamente", responseCuenta.getMensaje());
     }
+
+    @Test
+    @DisplayName("Registrar movimiento con saldo")
+    public void registrarMovimiento() {
+        when(cuentaRepository.obtenerSaldoActual(eq("001001")))
+                .thenReturn(new BigDecimal(10000));
+        when(transaccionesRepository.insertarMovimiento(any(RequestMovimiento.class)))
+                .thenReturn(MovimientoRegistroDto.builder()
+                        .uuidMovimiento(UUID.randomUUID())
+                        .valor(new BigDecimal(9000))
+                        .build());
+        ResponseMovimiento responseMovimiento = transaccionesAppService.insertarMovimiento(RequestMovimiento.builder()
+                .tipoMovimiento(TipoMovimiento.DEBITO)
+                .valor(new BigDecimal(1000))
+                .numeroCuenta("001001")
+                .build());
+        assertEquals("Movimiento Registrado exitosamente", responseMovimiento.getMensaje());
+    }
+    @Test
+    @DisplayName("Registrar movimiento sin saldo")
+    public void registrarMovimientoSinSaldo() {
+        when(cuentaRepository.obtenerSaldoActual(eq("001001")))
+                .thenReturn(new BigDecimal(10));
+        TransaccionDomainException transaccionDomainException = assertThrows(TransaccionDomainException.class,
+                () -> transaccionesAppService.insertarMovimiento(RequestMovimiento.builder()
+                        .tipoMovimiento(TipoMovimiento.DEBITO)
+                        .valor(new BigDecimal(1000))
+                        .numeroCuenta("001001")
+                        .build()));
+        assertEquals("Saldo insuficiente", transaccionDomainException.getMessage());
+    }
+
 
 }
 

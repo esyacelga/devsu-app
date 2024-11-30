@@ -1,21 +1,20 @@
-package ec.devsu.app.transacciones.servicio.dominio.dto.request;
+package ec.devsu.app.transacciones.servicio.dominio.dto;
 
 import ec.devsu.app.excepcion.comun.dominio.valor.TipoMovimiento;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Getter
 @Builder
 @AllArgsConstructor
-public class RequestMovimiento {
-    @NotNull
+public class MovimientoRegistroDto {
+    private final UUID uuidMovimiento;
     private final String numeroCuenta;
-    @NotNull
     private final TipoMovimiento tipoMovimiento;
-    @NotNull
-    private BigDecimal valor;
+    private final BigDecimal valor;
+    private final BigDecimal saldo;
 }
