@@ -1,4 +1,4 @@
-package ec.devsu.app.persona.servicio.dominio;
+package ec.devsu.app.persona.servicio.contendor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
