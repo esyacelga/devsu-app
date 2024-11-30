@@ -5,12 +5,10 @@ import ec.devsu.app.persona.servicio.acceso.datos.entity.Persona;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IClienteRepository;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import ec.devsu.app.persona.servicio.dominio.dto.ClienteDto;
-import ec.devsu.app.persona.servicio.dominio.exception.PersonaConstrainViolationException;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
 import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -70,29 +68,24 @@ public class ClientePersonaRepositoryImpl implements IClientePersonaRepository {
 
     @Override
     public ClienteDto insertarCliente(ClienteDto clienteDto) {
-        try {
-            Persona persona = personaRepository.insertarPersona(Persona.builder()
-                    .cliente(Cliente.builder()
-                            .clienteid(UUID.randomUUID())
-                            .contrasenia(clienteDto.getPassword())
-                            .estado(clienteDto.getEstado()).build())
-                    .identificacion(clienteDto.getIdentificacion())
-                    .nombre(clienteDto.getNombre())
-                    .telefono(clienteDto.getTelefono())
-                    .genero(clienteDto.getGenero())
-                    .direccion(clienteDto.getDireccion())
-                    .edad(clienteDto.getEdad())
-                    .id(UUID.randomUUID())
-                    .build());
-            return ClienteDto.builder()
-                    .nombre(persona.getNombre())
-                    .telefono(persona.getTelefono())
-                    .uuidCliente(persona.getCliente().getClienteid())
-                    .build();
-        } catch (ConstraintViolationException exception) {
-            throw new PersonaConstrainViolationException("Cliente con identificacion " + clienteDto.getIdentificacion() + " no encontrado.", exception);
-        }
-
+        Persona persona = personaRepository.insertarPersona(Persona.builder()
+                .cliente(Cliente.builder()
+                        .clienteid(UUID.randomUUID())
+                        .contrasenia(clienteDto.getPassword())
+                        .estado(clienteDto.getEstado()).build())
+                .identificacion(clienteDto.getIdentificacion())
+                .nombre(clienteDto.getNombre())
+                .telefono(clienteDto.getTelefono())
+                .genero(clienteDto.getGenero())
+                .direccion(clienteDto.getDireccion())
+                .edad(clienteDto.getEdad())
+                .id(UUID.randomUUID())
+                .build());
+        return ClienteDto.builder()
+                .nombre(persona.getNombre())
+                .telefono(persona.getTelefono())
+                .uuidCliente(persona.getCliente().getClienteid())
+                .build();
 
     }
 

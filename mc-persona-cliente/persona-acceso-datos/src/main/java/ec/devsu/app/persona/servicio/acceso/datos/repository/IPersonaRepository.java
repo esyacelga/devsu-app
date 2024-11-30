@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface IPersonaRepository {
 
 
-    Persona insertarPersona(Persona persona) throws ConstraintViolationException;
+    Persona insertarPersona(Persona persona)  ;
 
     void eliminarPersona(UUID uuid);
 

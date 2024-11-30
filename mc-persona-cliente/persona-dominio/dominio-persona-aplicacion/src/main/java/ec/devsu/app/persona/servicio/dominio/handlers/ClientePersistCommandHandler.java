@@ -2,6 +2,7 @@ package ec.devsu.app.persona.servicio.dominio.handlers;
 
 import ec.devsu.app.persona.servicio.dominio.dto.request.RequestCliente;
 import ec.devsu.app.persona.servicio.dominio.dto.response.ResponseCliente;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaConstrainViolationException;
 import ec.devsu.app.persona.servicio.dominio.helpers.ClientePersistHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,8 +19,13 @@ public class ClientePersistCommandHandler {
     }
 
     public ResponseCliente insertarCliente(RequestCliente cliente) {
-        return clientePersistHelper.insertarCliente(cliente);
+        try {
+            return clientePersistHelper.insertarCliente(cliente);
+        } catch (Exception exception) {
+            throw new PersonaConstrainViolationException("Error al insertar cliente con identificacion {" + cliente.getIdentificacion().toString() + "}", exception);
+        }
     }
+
     public void elimininarCliente(UUID uuidCliente) {
         clientePersistHelper.elimininarCliente(uuidCliente);
     }
