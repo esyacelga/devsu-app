@@ -14,12 +14,10 @@ import java.util.UUID;
 @Component
 public class PersonaRepositoryOutImpl implements IPersonaRepositoryOut {
     private final IPersonaRepository personaRepository;
-    private final IClientePersonaRepository clientePersonaRepository;
 
     public PersonaRepositoryOutImpl(IPersonaRepository personaRepository,
                                     IClientePersonaRepository clientePersonaRepository) {
         this.personaRepository = personaRepository;
-        this.clientePersonaRepository = clientePersonaRepository;
     }
 
     @Override

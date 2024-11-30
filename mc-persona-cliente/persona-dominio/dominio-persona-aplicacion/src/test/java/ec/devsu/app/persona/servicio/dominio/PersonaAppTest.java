@@ -1,10 +1,11 @@
-package ec.devsu.app.servicio.dominio;
+package ec.devsu.app.persona.servicio.dominio;
 
 import ec.devsu.app.persona.servicio.dominio.dto.ClienteDto;
 import ec.devsu.app.persona.servicio.dominio.dto.request.RequestCliente;
 import ec.devsu.app.persona.servicio.dominio.dto.response.ResponseCliente;
 import ec.devsu.app.persona.servicio.dominio.puertos.input.IClienteAppService;
 import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
+import ec.devsu.app.persona.servicio.dominio.puertos.output.IPersonaRepositoryOut;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,9 @@ public class PersonaAppTest {
 
     @Autowired
     IClientePersonaRepository clientePersonaRepository;
+
+    @Autowired
+    IPersonaRepositoryOut repositoryOut;
 
     @Test
     @DisplayName("Registrar cliente ")
@@ -53,7 +57,7 @@ public class PersonaAppTest {
                 .edad("36")
                 .contrasenia("123456")
                 .build();
-        ResponseCliente cliente =  clienteAppService.insertarCliente(requestCliente);
+        ResponseCliente cliente = clienteAppService.insertarCliente(requestCliente);
         assertEquals("CLIENTE REGISTRADO CORRECTAMENTE", cliente.getMensaje());
     }
 }
