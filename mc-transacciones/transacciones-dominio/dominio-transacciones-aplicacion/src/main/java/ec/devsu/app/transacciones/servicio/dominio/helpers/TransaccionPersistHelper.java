@@ -41,7 +41,7 @@ public class TransaccionPersistHelper {
                 ? saldoActual.add(requestMovimiento.getValor())
                 : saldoActual.subtract(requestMovimiento.getValor());
 
-        MovimientoRegistroDto mov = transaccionesRepository.insertarMovimiento(requestMovimiento);
+        MovimientoRegistroDto mov = transaccionesRepository.insertarMovimiento(requestMovimiento, nuevoSaldo);
         cuentaRepository.actualizarNuevoSaldo(requestMovimiento.getNumeroCuenta(), nuevoSaldo);
         return ResponseMovimiento.builder()
                 .uuidMovimiento(mov.getUuidMovimiento())
