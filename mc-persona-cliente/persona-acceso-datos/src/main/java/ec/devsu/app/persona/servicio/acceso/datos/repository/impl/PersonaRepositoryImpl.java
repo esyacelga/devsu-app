@@ -1,9 +1,9 @@
 package ec.devsu.app.persona.servicio.acceso.datos.repository.impl;
 
-import ec.devsu.app.persona.servicio.acceso.datos.entity.Cliente;
 import ec.devsu.app.persona.servicio.acceso.datos.entity.Persona;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
@@ -27,12 +27,17 @@ public class PersonaRepositoryImpl implements IPersonaRepository {
 
     @Override
     public Persona actualizarPersona(Persona persona) {
-        entityManager.createQuery(
-                        "UPDATE Persona p SET p.nombre = :nombre WHERE p.id = :personaId")
-                .setParameter("nombre", persona.getNombre())
-                .setParameter("personaId", persona.getId())
-                .executeUpdate();
-        return entityManager.merge(persona);
+        Persona personaExistente = entityManager.find(Persona.class, persona.getId());
+        if (personaExistente == null) {
+            throw new EntityNotFoundException("Persona con ID " + persona.getId() + " no encontrada.");
+        }
+        personaExistente.setNombre(persona.getNombre());
+        personaExistente.setDireccion(persona.getDireccion());
+        personaExistente.setEdad(persona.getEdad());
+        personaExistente.setGenero(persona.getGenero());
+        personaExistente.setTelefono(persona.getTelefono());
+        entityManager.merge(personaExistente);
+        return personaExistente;
     }
 
     @Override

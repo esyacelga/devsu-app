@@ -27,6 +27,7 @@ public class PersonaRepositoryOutImpl implements IPersonaRepositoryOut {
         Persona per = personaRepository.actualizarPersona(Persona.builder()
                 .genero(personaDto.getGenero())
                 .id(personaDto.getUuidPersona())
+                .edad(personaDto.getEdad())
                 .nombre(personaDto.getNombre())
                 .identificacion(personaDto.getIdentificacion())
                 .nombre(personaDto.getNombre())
