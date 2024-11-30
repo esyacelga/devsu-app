@@ -9,9 +9,13 @@ public interface ICuentaRepository {
     public CuentaDto insertarCuentaPersona(RequestCuenta requestCuenta, String numeroCuenta);
 
     Integer obtenerSiguienteSecuencial();
+
     BigDecimal obtenerSaldoActual(String numeroCuenta);
 
+    CuentaDto obtenerCuentaPersona(String numeroCuenta);
+
     CuentaDto actualizarCuenta(CuentaDto cuentaDto);
+
     CuentaDto actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo);
 
     CuentaDto obtenerCuentaPorNumero(String numeroCuenta);

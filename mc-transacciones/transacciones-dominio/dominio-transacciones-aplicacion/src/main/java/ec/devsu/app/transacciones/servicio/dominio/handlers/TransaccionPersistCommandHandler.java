@@ -5,6 +5,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActu
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.helpers.CuentaQueryHelper;
 import ec.devsu.app.transacciones.servicio.dominio.helpers.TransaccionPersistHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,14 +14,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class TransaccionPersistCommandHandler {
     public final TransaccionPersistHelper transaccionPersistHelper;
+    public final CuentaQueryHelper cuentaQueryHelper;
 
-    public TransaccionPersistCommandHandler(TransaccionPersistHelper transaccionPersistHelper) {
+    public TransaccionPersistCommandHandler(TransaccionPersistHelper transaccionPersistHelper, CuentaQueryHelper cuentaQueryHelper) {
         this.transaccionPersistHelper = transaccionPersistHelper;
+        this.cuentaQueryHelper = cuentaQueryHelper;
     }
+
 
     public ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento) {
         return transaccionPersistHelper.insertarMovimiento(requestMovimiento);
     }
+
     public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) {
         return transaccionPersistHelper.insertarCuentaPersona(requestCuenta);
     }
@@ -32,8 +37,6 @@ public class TransaccionPersistCommandHandler {
                 .saldo(cuentaActualizacion.getSaldo())
                 .build());
     }
-
-
 
 
 }

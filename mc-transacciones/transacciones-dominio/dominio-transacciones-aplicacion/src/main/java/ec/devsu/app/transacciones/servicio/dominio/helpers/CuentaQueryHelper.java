@@ -18,7 +18,10 @@ public class CuentaQueryHelper {
         return cuentaRepository.obtenerSiguienteSecuencial();
     }
 
-    public CuentaDto obtenerCuentaDto(String numeroCuenta) {
+    public CuentaDto obtenerCuentaPersona(String numeroCuenta) {
+        return cuentaRepository.obtenerCuentaPersona(numeroCuenta);
+    }
+    public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) {
         return cuentaRepository.obtenerCuentaPorNumero(numeroCuenta);
     }
 }

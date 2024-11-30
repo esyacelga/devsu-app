@@ -14,8 +14,8 @@ public class CuentaQueryCommandHandler {
         this.cuentaQueryHelper = cuentaQueryHelper;
     }
 
-    public CuentaDto obtenerCuentaDto(String numeroCuenta) {
-        return cuentaQueryHelper.obtenerCuentaDto(numeroCuenta);
+    public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) {
+        return cuentaQueryHelper.obtenerCuentaPorNumero(numeroCuenta);
     }
 
 }

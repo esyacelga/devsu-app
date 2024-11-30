@@ -26,7 +26,10 @@ public class TransaccionesAppServiceImpl implements ITransaccionesAppService {
         this.cuentaQueryCommandHandler = cuentaQueryCommandHandler;
     }
 
-
+    @Override
+    public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) {
+        return cuentaQueryCommandHandler.obtenerCuentaPorNumero(numeroCuenta);
+    }
 
     @Override
     public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) {

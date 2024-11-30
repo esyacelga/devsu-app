@@ -1,5 +1,6 @@
 package ec.devsu.app.transacciones.servicio.dominio.puertos.input;
 
+import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
@@ -13,6 +14,6 @@ public interface ITransaccionesAppService {
     ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion);
 
     ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento);
-
+    CuentaDto obtenerCuentaPorNumero(String numeroCuenta);
 
 }
