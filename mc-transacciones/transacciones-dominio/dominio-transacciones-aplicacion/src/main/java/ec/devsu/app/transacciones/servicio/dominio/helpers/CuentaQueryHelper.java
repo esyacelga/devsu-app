@@ -1,16 +1,16 @@
 package ec.devsu.app.transacciones.servicio.dominio.helpers;
 
 import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
-import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaRepository;
+import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaDomainRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
 public class CuentaQueryHelper {
-    private final ICuentaRepository cuentaRepository;
+    private final ICuentaDomainRepository cuentaRepository;
 
-    public CuentaQueryHelper(ICuentaRepository cuentaRepository) {
+    public CuentaQueryHelper(ICuentaDomainRepository cuentaRepository) {
         this.cuentaRepository = cuentaRepository;
     }
 

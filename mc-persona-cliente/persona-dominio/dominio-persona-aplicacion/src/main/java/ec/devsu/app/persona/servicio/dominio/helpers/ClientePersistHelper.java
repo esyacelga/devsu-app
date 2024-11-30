@@ -6,8 +6,8 @@ import ec.devsu.app.persona.servicio.dominio.dto.request.RequestCliente;
 import ec.devsu.app.persona.servicio.dominio.dto.response.ResponseCliente;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
-import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
-import ec.devsu.app.persona.servicio.dominio.puertos.output.IPersonaRepositoryOut;
+import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaDomainRepository;
+import ec.devsu.app.persona.servicio.dominio.puertos.output.IPersonaDomainRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +18,10 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class ClientePersistHelper {
-    private final IClientePersonaRepository clientePersonaRepository;
-    private final IPersonaRepositoryOut personaRepositoryOut;
+    private final IClientePersonaDomainRepository clientePersonaRepository;
+    private final IPersonaDomainRepository personaRepositoryOut;
 
-    public ClientePersistHelper(IClientePersonaRepository clientePersonaRepository, IPersonaRepositoryOut personaRepositoryOut) {
+    public ClientePersistHelper(IClientePersonaDomainRepository clientePersonaRepository, IPersonaDomainRepository personaRepositoryOut) {
         this.clientePersonaRepository = clientePersonaRepository;
         this.personaRepositoryOut = personaRepositoryOut;
     }

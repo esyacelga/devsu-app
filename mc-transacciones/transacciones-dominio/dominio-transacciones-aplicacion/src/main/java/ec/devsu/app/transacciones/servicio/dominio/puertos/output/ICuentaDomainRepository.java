@@ -5,7 +5,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 
 import java.math.BigDecimal;
 
-public interface ICuentaRepository {
+public interface ICuentaDomainRepository {
     public CuentaDto insertarCuentaPersona(RequestCuenta requestCuenta, String numeroCuenta);
 
     Integer obtenerSiguienteSecuencial();

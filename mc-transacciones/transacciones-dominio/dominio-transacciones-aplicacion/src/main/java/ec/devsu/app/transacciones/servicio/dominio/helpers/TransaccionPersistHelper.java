@@ -9,8 +9,8 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
-import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaRepository;
-import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ITransaccionesRepository;
+import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaDomainRepository;
+import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ITransaccionesDomainRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +19,11 @@ import java.math.BigDecimal;
 @Slf4j
 @Component
 public class TransaccionPersistHelper {
-    private final ICuentaRepository cuentaRepository;
-    private final ITransaccionesRepository transaccionesRepository;
+    private final ICuentaDomainRepository cuentaRepository;
+    private final ITransaccionesDomainRepository transaccionesRepository;
 
-    public TransaccionPersistHelper(ICuentaRepository cuentaRepository,
-                                    ITransaccionesRepository transaccionesRepository) {
+    public TransaccionPersistHelper(ICuentaDomainRepository cuentaRepository,
+                                    ITransaccionesDomainRepository transaccionesRepository) {
         this.cuentaRepository = cuentaRepository;
         this.transaccionesRepository = transaccionesRepository;
     }

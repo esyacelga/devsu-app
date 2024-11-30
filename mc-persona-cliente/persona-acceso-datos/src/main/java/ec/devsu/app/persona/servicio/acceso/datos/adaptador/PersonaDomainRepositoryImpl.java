@@ -5,18 +5,16 @@ import ec.devsu.app.persona.servicio.acceso.datos.entity.Persona;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import ec.devsu.app.persona.servicio.dominio.dto.PersonaDto;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
-import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
-import ec.devsu.app.persona.servicio.dominio.puertos.output.IPersonaRepositoryOut;
+import ec.devsu.app.persona.servicio.dominio.puertos.output.IPersonaDomainRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
-public class PersonaRepositoryOutImpl implements IPersonaRepositoryOut {
+public class PersonaDomainRepositoryImpl implements IPersonaDomainRepository {
     private final IPersonaRepository personaRepository;
 
-    public PersonaRepositoryOutImpl(IPersonaRepository personaRepository,
-                                    IClientePersonaRepository clientePersonaRepository) {
+    public PersonaDomainRepositoryImpl(IPersonaRepository personaRepository) {
         this.personaRepository = personaRepository;
     }
 

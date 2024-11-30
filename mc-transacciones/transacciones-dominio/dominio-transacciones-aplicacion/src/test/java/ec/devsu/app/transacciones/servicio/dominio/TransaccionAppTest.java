@@ -11,8 +11,8 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.input.ITransaccionesAppService;
-import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaRepository;
-import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ITransaccionesRepository;
+import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaDomainRepository;
+import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ITransaccionesDomainRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,10 +38,10 @@ public class TransaccionAppTest {
     ITransaccionesAppService transaccionesAppService;
 
     @Autowired
-    ITransaccionesRepository transaccionesRepository;
+    ITransaccionesDomainRepository transaccionesRepository;
 
     @Autowired
-    ICuentaRepository cuentaRepository;
+    ICuentaDomainRepository cuentaRepository;
 
 
     @Test

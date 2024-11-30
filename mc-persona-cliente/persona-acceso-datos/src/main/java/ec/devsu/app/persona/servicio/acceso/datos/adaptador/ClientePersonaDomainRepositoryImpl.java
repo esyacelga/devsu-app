@@ -7,7 +7,7 @@ import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import ec.devsu.app.persona.servicio.dominio.dto.ClienteDto;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
-import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
+import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaDomainRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -15,12 +15,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class ClientePersonaRepositoryImpl implements IClientePersonaRepository {
+public class ClientePersonaDomainRepositoryImpl implements IClientePersonaDomainRepository {
     private final IPersonaRepository personaRepository;
     private final IClienteRepository clientePersonaRepository;
 
-    public ClientePersonaRepositoryImpl(IPersonaRepository personaRepository,
-                                        IClienteRepository clientePersonaRepository) {
+    public ClientePersonaDomainRepositoryImpl(IPersonaRepository personaRepository,
+                                              IClienteRepository clientePersonaRepository) {
         this.personaRepository = personaRepository;
         this.clientePersonaRepository = clientePersonaRepository;
     }

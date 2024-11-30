@@ -7,7 +7,7 @@ import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainExce
 import java.util.Optional;
 import java.util.UUID;
 
-public interface IClientePersonaRepository {
+public interface IClientePersonaDomainRepository {
     Optional<ClienteDto> buscarClientePorId(UUID uuidCliente);
 
     ClienteDto buscarClientePorIdentificacion(String identificacion);

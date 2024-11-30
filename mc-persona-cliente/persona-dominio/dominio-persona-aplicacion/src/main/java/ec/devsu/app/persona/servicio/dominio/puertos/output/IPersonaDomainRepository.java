@@ -5,7 +5,7 @@ import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
 
 import java.util.UUID;
 
-public interface IPersonaRepositoryOut {
+public interface IPersonaDomainRepository {
 
     PersonaDto actualizarPersona(UUID uuidCliente, PersonaDto personaDto) throws PersonaDomainException;
 }

@@ -1,9 +1,7 @@
 package ec.devsu.app.persona.servicio.dominio;
 
-import ec.devsu.app.persona.servicio.dominio.ClienteAppServiceImpl;
-import ec.devsu.app.persona.servicio.dominio.puertos.input.IClienteAppService;
-import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaRepository;
-import ec.devsu.app.persona.servicio.dominio.puertos.output.IPersonaRepositoryOut;
+import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaDomainRepository;
+import ec.devsu.app.persona.servicio.dominio.puertos.output.IPersonaDomainRepository;
 import org.mockito.Mockito;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -11,12 +9,12 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication(scanBasePackages = "ec.devsu.app.persona.servicio.dominio")
 public class PersonaTestConfiguration {
     @Bean
-    IClientePersonaRepository clientePersonaRepository() {
-        return Mockito.mock(IClientePersonaRepository.class);
+    IClientePersonaDomainRepository clientePersonaRepository() {
+        return Mockito.mock(IClientePersonaDomainRepository.class);
     }
     @Bean
-    IPersonaRepositoryOut personaRepositoryOut() {
-        return Mockito.mock(IPersonaRepositoryOut.class);
+    IPersonaDomainRepository personaRepositoryOut() {
+        return Mockito.mock(IPersonaDomainRepository.class);
     }
 
 }
