@@ -5,4 +5,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 
 public interface ITransaccionesRepository {
     public CuentaDto insertarCuentaPersona(RequestCuenta requestCuenta, String numeroCuenta);
+
+    public CuentaDto actualizarCuentaPersona(CuentaDto cuentaDto);
+
 }

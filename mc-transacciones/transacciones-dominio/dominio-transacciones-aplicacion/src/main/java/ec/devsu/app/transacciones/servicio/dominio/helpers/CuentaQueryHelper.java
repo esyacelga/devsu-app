@@ -1,5 +1,6 @@
 package ec.devsu.app.transacciones.servicio.dominio.helpers;
 
+import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,5 +16,9 @@ public class CuentaQueryHelper {
 
     public Integer obtenerSiguienteSecuencial() {
         return cuentaRepository.obtenerSiguienteSecuencial();
+    }
+
+    public CuentaDto obtenerCuentaDto(String numeroCuenta) {
+        return cuentaRepository.obtenerCuentaPorNumero(numeroCuenta);
     }
 }
