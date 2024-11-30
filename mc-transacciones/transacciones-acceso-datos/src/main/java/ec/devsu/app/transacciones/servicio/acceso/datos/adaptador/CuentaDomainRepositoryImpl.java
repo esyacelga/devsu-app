@@ -1,5 +1,6 @@
 package ec.devsu.app.transacciones.servicio.acceso.datos.adaptador;
 
+import ec.devsu.app.excepcion.comun.dominio.valor.TipoCuenta;
 import ec.devsu.app.transacciones.servicio.acceso.datos.entity.Cuenta;
 import ec.devsu.app.transacciones.servicio.acceso.datos.entity.Persona;
 import ec.devsu.app.transacciones.servicio.acceso.datos.repository.ICuentaRepository;
@@ -43,31 +44,41 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
 
     @Override
     public Integer obtenerSiguienteSecuencial() {
-        return null;
+        return cuentaDomainRepository.obtenerSiguienteSecuencial();
     }
 
     @Override
     public BigDecimal obtenerSaldoActual(String numeroCuenta) {
-        return null;
-    }
-
-    @Override
-    public CuentaDto obtenerCuentaPersona(String numeroCuenta) {
-        return null;
+        return cuentaDomainRepository.obtenerSaldoActual(numeroCuenta);
     }
 
     @Override
     public CuentaDto actualizarCuenta(CuentaDto cuentaDto) {
-        return null;
+        Cuenta cuenta = cuentaDomainRepository.actualizarCuenta(Cuenta.builder().build());
+        return CuentaDto.builder()
+                .uuidCuenta(cuenta.getId())
+                .saldo(cuenta.getSaldoInicialEstado())
+                .build();
     }
 
     @Override
     public CuentaDto actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo) {
-        return null;
+        Cuenta cuenta = cuentaDomainRepository.actualizarNuevoSaldo(numeroCuenta, nuevoSaldo);
+        return CuentaDto.builder()
+                .numeroCuenta(cuenta.getNumeroCuenta())
+                .uuidCuenta(cuenta.getId())
+                .build();
     }
 
     @Override
     public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) {
-        return null;
+        Cuenta cuenta = cuentaDomainRepository.obtenerCuentaPorNumero(numeroCuenta);
+        TipoCuenta d = TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase());
+
+        return CuentaDto.builder()
+                .uuidCuenta(cuenta.getId())
+                .numeroCuenta(cuenta.getNumeroCuenta())
+                .tipoCuenta(TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase()))
+                .build();
     }
 }

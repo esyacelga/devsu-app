@@ -12,7 +12,6 @@ public interface ICuentaDomainRepository {
 
     BigDecimal obtenerSaldoActual(String numeroCuenta);
 
-    CuentaDto obtenerCuentaPersona(String numeroCuenta);
 
     CuentaDto actualizarCuenta(CuentaDto cuentaDto);
 

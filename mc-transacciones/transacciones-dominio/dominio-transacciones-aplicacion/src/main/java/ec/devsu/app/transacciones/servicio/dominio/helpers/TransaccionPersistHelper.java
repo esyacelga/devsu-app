@@ -36,11 +36,12 @@ public class TransaccionPersistHelper {
             throw new TransaccionDomainException("Saldo insuficiente");
         }
 
-        MovimientoRegistroDto mov = transaccionesRepository.insertarMovimiento(requestMovimiento);
+
         BigDecimal nuevoSaldo = requestMovimiento.getTipoMovimiento() == TipoMovimiento.CREDITO
                 ? saldoActual.add(requestMovimiento.getValor())
                 : saldoActual.subtract(requestMovimiento.getValor());
 
+        MovimientoRegistroDto mov = transaccionesRepository.insertarMovimiento(requestMovimiento);
         cuentaRepository.actualizarNuevoSaldo(requestMovimiento.getNumeroCuenta(), nuevoSaldo);
         return ResponseMovimiento.builder()
                 .uuidMovimiento(mov.getUuidMovimiento())

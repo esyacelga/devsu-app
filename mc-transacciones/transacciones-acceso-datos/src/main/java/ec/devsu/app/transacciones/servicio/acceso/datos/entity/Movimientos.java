@@ -1,6 +1,5 @@
 package ec.devsu.app.transacciones.servicio.acceso.datos.entity;
 
-import ec.devsu.app.excepcion.comun.dominio.valor.TipoMovimiento;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,7 +28,7 @@ public class Movimientos {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_movimiento", nullable = false, length = 50)
-    private TipoMovimiento tipoMovimiento;
+    private String tipoMovimiento;
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal valor;
