@@ -91,7 +91,10 @@ public class ClientePersonaRepositoryImpl implements IClientePersonaRepository {
 
     @Override
     public ClienteDto actualizarCliente(UUID uuidCliente, ClienteDto clienteDto) {
-        Cliente cl = clientePersonaRepository.actualizar(uuidCliente, Cliente.builder().build());
+        Cliente cl = clientePersonaRepository.actualizar(uuidCliente, Cliente.builder()
+                        .estado(clienteDto.getEstado())
+                        .contrasenia(clienteDto.getPassword())
+                .build());
         return ClienteDto.builder()
                 .uuidCliente(cl.getClienteid())
                 .estado(cl.getEstado())

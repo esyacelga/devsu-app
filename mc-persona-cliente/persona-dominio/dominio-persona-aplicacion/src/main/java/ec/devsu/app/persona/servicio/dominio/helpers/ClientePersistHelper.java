@@ -53,7 +53,8 @@ public class ClientePersistHelper {
                 .telefono(cliente.getTelefono())
                 .identificacion(cliente.getIdentificacion())
                 .uuidCliente(idCliente)
-                .estado("1").build());
+                .password(cliente.getContrasenia())
+                .estado(cliente.getEstado()).build());
         return ResponseCliente.builder()
                 .mensaje("CLIENTE ACTUALIZADO CORRECTAMENTE")
                 .poaUUID(cl.getUuidCliente())
