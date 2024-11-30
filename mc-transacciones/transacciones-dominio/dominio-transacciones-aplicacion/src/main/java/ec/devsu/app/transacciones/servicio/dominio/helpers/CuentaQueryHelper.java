@@ -19,7 +19,7 @@ public class CuentaQueryHelper {
     }
 
     public CuentaDto obtenerCuentaPersona(String numeroCuenta) {
-        return cuentaRepository.obtenerCuentaPersona(numeroCuenta);
+        return cuentaRepository.obtenerCuentaPorNumero(numeroCuenta);
     }
     public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) {
         return cuentaRepository.obtenerCuentaPorNumero(numeroCuenta);

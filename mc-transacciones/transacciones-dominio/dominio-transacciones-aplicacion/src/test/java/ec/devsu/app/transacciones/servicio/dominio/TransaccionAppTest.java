@@ -99,7 +99,7 @@ public class TransaccionAppTest {
     public void registrarMovimiento() {
         when(cuentaRepository.obtenerSaldoActual(eq("001001")))
                 .thenReturn(new BigDecimal(10000));
-        when(transaccionesRepository.insertarMovimiento(any(RequestMovimiento.class)))
+        when(transaccionesRepository.insertarMovimiento(any(RequestMovimiento.class),any(BigDecimal.class)))
                 .thenReturn(MovimientoRegistroDto.builder()
                         .uuidMovimiento(UUID.randomUUID())
                         .valor(new BigDecimal(9000))
