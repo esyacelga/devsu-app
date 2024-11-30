@@ -91,15 +91,19 @@ public class ClientePersonaRepositoryImpl implements IClientePersonaRepository {
     }
 
     @Override
-    public ClienteDto actualizarCliente(UUID uuidCliente, ClienteDto clienteDto) {
-        Cliente cl = clientePersonaRepository.actualizar(uuidCliente, Cliente.builder()
-                        .estado(clienteDto.getEstado())
-                        .contrasenia(clienteDto.getPassword())
-                .build());
-        return ClienteDto.builder()
-                .uuidCliente(cl.getClienteid())
-                .estado(cl.getEstado())
-                .build();
+    public ClienteDto actualizarCliente(UUID uuidCliente, ClienteDto clienteDto) throws PersonaNotFoundDomainException {
+        try {
+            Cliente cl = clientePersonaRepository.actualizar(uuidCliente, Cliente.builder()
+                    .estado(clienteDto.getEstado())
+                    .contrasenia(clienteDto.getPassword())
+                    .build());
+            return ClienteDto.builder()
+                    .uuidCliente(cl.getClienteid())
+                    .estado(cl.getEstado())
+                    .build();
+        } catch (EntityNotFoundException exception) {
+            throw new PersonaNotFoundDomainException("Persona no encontrada: "+uuidCliente+" ", exception);
+        }
     }
 
 

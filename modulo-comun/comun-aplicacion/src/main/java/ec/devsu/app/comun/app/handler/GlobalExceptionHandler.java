@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
     public ErrorDTO handlePersonaNotFoundDomainException(PersonaNotFoundDomainException ex) {
         log.error(ex.getMessage(), ex);
         return ErrorDTO.builder()
-                .code(HttpStatus.CONFLICT.getReasonPhrase())
+                .code(HttpStatus.NOT_FOUND.getReasonPhrase())
                 .message(ex.getMessage())
                 .build();
     }

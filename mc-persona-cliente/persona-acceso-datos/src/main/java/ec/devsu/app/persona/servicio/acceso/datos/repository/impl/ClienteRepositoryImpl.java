@@ -26,10 +26,10 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     @Override
     public Cliente actualizar(UUID uuid, Cliente cliente) throws EntityNotFoundException {
         Cliente clienteExistente = entityManager.find(Cliente.class, uuid);
-        Persona persona =entityManager.find(Persona.class,clienteExistente.getPersona().getId());
         if (clienteExistente == null) {
             throw new EntityNotFoundException("Cliente con UUID " + uuid + " no encontrado.");
         }
+        Persona persona =entityManager.find(Persona.class,clienteExistente.getPersona().getId());
         clienteExistente.setContrasenia(cliente.getContrasenia());
         clienteExistente.setEstado(cliente.getEstado());
         clienteExistente.setPersona(persona);

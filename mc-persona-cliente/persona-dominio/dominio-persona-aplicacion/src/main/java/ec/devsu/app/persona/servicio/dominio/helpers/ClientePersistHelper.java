@@ -51,6 +51,7 @@ public class ClientePersistHelper {
 
     @Transactional
     public ResponseCliente updateCliente(UUID idCliente, RequestCliente cliente) throws PersonaDomainException {
+
         ClienteDto clP = clientePersonaRepository.actualizarCliente(idCliente, ClienteDto.builder()
                 .direccion(cliente.getDireccion())
                 .genero(cliente.getGenero())
@@ -78,23 +79,6 @@ public class ClientePersistHelper {
                 .mensaje("CLIENTE ACTUALIZADO CORRECTAMENTE")
                 .poaUUID(clP.getUuidCliente())
                 .build();
-    }
-
-    public void guardarPersona(UUID idCliente, RequestCliente cliente) {
-        Optional<ClienteDto> clienteDto = clientePersonaRepository.buscarClientePorId(idCliente);
-        clienteDto.ifPresent(cl -> {
-            UUID uuid = cl.getUuidPersona();
-            personaRepositoryOut.actualizarPersona(uuid, PersonaDto.builder()
-                    .nombre(cliente.getNombre())
-                    .identificacion(cliente.getIdentificacion())
-                    .genero(cliente.getGenero())
-                    .edad(cliente.getEdad())
-                    .uuidPersona(cl.getUuidPersona())
-                    .uuidCliente(cl.getUuidCliente())
-                    .telefono(cliente.getTelefono())
-                    .direccion(cliente.getDireccion())
-                    .build());
-        });
     }
 
 }
