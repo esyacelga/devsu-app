@@ -48,18 +48,22 @@ public class TransaccionesDomainRepositoryImpl implements ITransaccionesDomainRe
     }
 
     @Override
-    public MovimientoRegistroDto buscarMovimientoPorId(UUID uuidMovimiento) {
-        Movimientos movimientos = movimientoRepository.buscarMovimientoPorId(uuidMovimiento);
+    public MovimientoRegistroDto buscarMovimientoPorId(UUID uuidMovimiento) throws TransaccionDomainException {
+        Optional<Movimientos> movimientosOptional = movimientoRepository.buscarMovimientoPorId(uuidMovimiento);
+        Movimientos movimientos = movimientosOptional.orElseThrow(() -> new TransaccionDomainException("No se ha encontrado movimiento con id: " + uuidMovimiento.toString() + " "));
         return MovimientoRegistroDto.builder()
                 .tipoMovimiento(TipoMovimiento.valueOf(movimientos.getTipoMovimiento()))
                 .saldo(movimientos.getSaldo())
+                .uuidMovimiento(movimientos.getId())
+                .numeroCuenta(movimientos.getCuenta().getNumeroCuenta())
                 .valor(movimientos.getValor())
                 .build();
     }
 
     @Override
-    public MovimientoRegistroDto actualizarMovimiento(RequestMovimientoActualizacion requestMovimiento) {
-        Movimientos movimientos = movimientoRepository.buscarMovimientoPorId(requestMovimiento.getUuidMovimiento());
+    public MovimientoRegistroDto actualizarMovimiento(RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException {
+        Optional<Movimientos> movimientosOptional = movimientoRepository.buscarMovimientoPorId(requestMovimiento.getUuidMovimiento());
+        Movimientos movimientos = movimientosOptional.orElseThrow(() -> new TransaccionDomainException("No se ha encontrado movimiento con id: " + requestMovimiento.getUuidMovimiento().toString() + " "));
         movimientos.setTipoMovimiento(requestMovimiento.getTipoMovimiento().getValue());
         movimientos.setValor(requestMovimiento.getValor());
         movimientoRepository.actualizarMovimiento(movimientos);

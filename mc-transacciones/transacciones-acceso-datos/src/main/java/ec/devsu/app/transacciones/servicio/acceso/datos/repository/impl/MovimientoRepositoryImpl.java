@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -20,8 +21,8 @@ public class MovimientoRepositoryImpl implements IMovimientoRepository {
     }
 
     @Override
-    public Movimientos buscarMovimientoPorId(UUID uuidMovimiento) {
-        return entityManager.find(Movimientos.class, uuidMovimiento);
+    public Optional<Movimientos> buscarMovimientoPorId(UUID uuidMovimiento) {
+        return Optional.of(entityManager.find(Movimientos.class, uuidMovimiento));
     }
 
     @Override
