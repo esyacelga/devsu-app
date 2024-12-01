@@ -5,8 +5,10 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import jakarta.validation.Valid;
 
 import java.util.UUID;
@@ -20,6 +22,8 @@ public interface ITransaccionesAppService {
     ResponseMovimiento insertarMovimiento(@Valid RequestMovimiento requestMovimiento);
 
     CuentaDto obtenerCuentaPorNumero(@Valid String numeroCuenta);
+
     public MovimientoRegistroDto buscarMovimientoPorId(@Valid UUID uuidMovimiento);
 
+    public ResponseMovimiento actualizarMovimiento(@Valid RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException;
 }

@@ -1,10 +1,13 @@
 package ec.devsu.app.transacciones.servicio.dominio.handlers;
 
+import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.helpers.CuentaQueryHelper;
 import ec.devsu.app.transacciones.servicio.dominio.helpers.TransaccionPersistHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +40,8 @@ public class TransaccionPersistCommandHandler {
                 .saldo(cuentaActualizacion.getSaldo())
                 .build());
     }
-
+    public MovimientoRegistroDto actualizarMovimiento(RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException {
+        return transaccionPersistHelper.actualizarMovimiento(requestMovimiento);
+    }
 
 }

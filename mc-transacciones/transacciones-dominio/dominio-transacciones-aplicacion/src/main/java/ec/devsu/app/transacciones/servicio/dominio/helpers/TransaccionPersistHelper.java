@@ -6,6 +6,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
@@ -27,6 +28,11 @@ public class TransaccionPersistHelper {
                                     ITransaccionesDomainRepository transaccionesRepository) {
         this.cuentaRepository = cuentaRepository;
         this.transaccionesRepository = transaccionesRepository;
+    }
+
+    @Transactional
+    public MovimientoRegistroDto actualizarMovimiento(RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException {
+        return transaccionesRepository.actualizarMovimiento(requestMovimiento);
     }
 
     @Transactional

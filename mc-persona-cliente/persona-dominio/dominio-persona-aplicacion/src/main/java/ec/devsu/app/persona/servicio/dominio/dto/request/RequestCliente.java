@@ -9,8 +9,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 public class RequestCliente extends RequestPersona {
-    @NotNull
+    @NotNull(message = "La contrasenia no debe estar en null")
     private final String contrasenia;
-    @NotNull
+    @NotNull(message = "El estado no debe estar en null")
     private final String estado;
 }

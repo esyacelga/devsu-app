@@ -5,8 +5,10 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.handlers.CuentaQueryCommandHandler;
 import ec.devsu.app.transacciones.servicio.dominio.handlers.TransaccionPersistCommandHandler;
 import ec.devsu.app.transacciones.servicio.dominio.handlers.TransaccionesQueryCommandHandler;
@@ -42,6 +44,14 @@ public class TransaccionesAppServiceImpl implements ITransaccionesAppService {
     public MovimientoRegistroDto buscarMovimientoPorId(UUID uuidMovimiento) {
         return transaccionesQueryCommandHandler.buscarMovimientoPorId(uuidMovimiento);
 
+    }
+
+    @Override
+    public ResponseMovimiento actualizarMovimiento(RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException {
+        MovimientoRegistroDto movimientoRegistroDto =  transaccionPersistCommandHandler.actualizarMovimiento(requestMovimiento);
+         return ResponseMovimiento.builder()
+                 .mensaje("Movimiento actualizado con exito")
+                 .uuidMovimiento(movimientoRegistroDto.getUuidMovimiento()).build();
     }
 
     @Override

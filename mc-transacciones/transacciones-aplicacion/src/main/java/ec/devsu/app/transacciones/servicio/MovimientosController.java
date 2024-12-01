@@ -2,6 +2,7 @@ package ec.devsu.app.transacciones.servicio;
 
 import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.input.ITransaccionesAppService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,11 @@ public class MovimientosController {
     @PostMapping
     public ResponseEntity<ResponseMovimiento> insertarMovimiento(@RequestBody RequestMovimiento requestMovimiento) {
         return ResponseEntity.ok(transaccionesAppService.insertarMovimiento(requestMovimiento));
+    }
+
+    @PutMapping
+    public ResponseEntity<ResponseMovimiento> actualizarMovimiento(@RequestBody RequestMovimientoActualizacion requestMovimiento) {
+        return ResponseEntity.ok(transaccionesAppService.actualizarMovimiento(requestMovimiento));
     }
 
     @GetMapping("/{uuidMovimiento}")
