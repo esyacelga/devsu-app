@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 public class RequestCuenta {
-    @NotNull
+    @NotNull(message = "Identificacion no debe ser nula")
     private final String identificacion;
-    @NotNull
+    @NotNull(message = "Tipo de cuenta no debe ser nula")
     private final TipoCuenta tipoCuenta;
-    @NotNull
+    @NotNull(message = "El saldo no debe ser nulo")
     private final BigDecimal saldo;
 }

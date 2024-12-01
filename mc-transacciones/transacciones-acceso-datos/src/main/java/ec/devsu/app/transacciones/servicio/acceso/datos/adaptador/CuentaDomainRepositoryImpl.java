@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
@@ -33,6 +34,7 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
                 new CuentaDomainException("Persona no encontrada con la identificación especificada"));
         Cuenta cuenta = cuentaDomainRepository.insertarCuentaPersona(Cuenta.builder()
                 .tipoCuenta(requestCuenta.getTipoCuenta().getTipo())
+                .id(UUID.randomUUID())
                 .numeroCuenta(numeroCuenta)
                 .persona(personaBD)
                 .saldoInicialEstado(requestCuenta.getSaldo())

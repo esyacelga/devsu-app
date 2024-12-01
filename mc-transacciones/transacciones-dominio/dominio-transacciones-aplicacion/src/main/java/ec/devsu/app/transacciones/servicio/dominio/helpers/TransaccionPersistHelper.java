@@ -13,6 +13,7 @@ import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaDomainR
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ITransaccionesDomainRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -28,6 +29,7 @@ public class TransaccionPersistHelper {
         this.transaccionesRepository = transaccionesRepository;
     }
 
+    @Transactional
     public ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento) {
         BigDecimal saldoActual = cuentaRepository.obtenerSaldoActual(requestMovimiento.getNumeroCuenta());
 
@@ -49,6 +51,7 @@ public class TransaccionPersistHelper {
                 .build();
     }
 
+    @Transactional
     public ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion) {
         CuentaDto cuenta = cuentaRepository.obtenerCuentaPorNumero(cuentaActualizacion.getNumeroCuenta());
         CuentaDto cuentaDto = cuentaRepository.actualizarCuenta(CuentaDto.builder()
@@ -62,6 +65,7 @@ public class TransaccionPersistHelper {
                 .build();
     }
 
+    @Transactional
     public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) {
         Integer numeroCuenta = cuentaRepository.obtenerSiguienteSecuencial();
         if (numeroCuenta == null) {
