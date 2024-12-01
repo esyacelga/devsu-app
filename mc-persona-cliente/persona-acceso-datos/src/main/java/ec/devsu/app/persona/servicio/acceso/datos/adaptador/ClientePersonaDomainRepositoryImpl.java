@@ -31,7 +31,7 @@ public class ClientePersonaDomainRepositoryImpl implements IClientePersonaDomain
         return clientePersonaRepository.buscarPorId(uuidCliente)
                 .map(cliente -> ClienteDto.builder()
                         .uuidCliente(uuidCliente)
-                        .estado(cliente.getEstado())
+                        .estado(cliente.getEstado().toString())
                         .uuidPersona(cliente.getPersona().getId())
                         .genero(cliente.getPersona().getGenero())
                         .direccion(cliente.getPersona().getDireccion())
