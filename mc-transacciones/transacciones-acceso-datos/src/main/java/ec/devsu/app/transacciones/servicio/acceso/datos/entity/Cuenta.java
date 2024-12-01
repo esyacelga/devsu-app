@@ -28,6 +28,9 @@ public class Cuenta {
     @Column(name = "tipo_cuenta", nullable = false, length = 50)
     private String tipoCuenta;
 
-    @Column(name = "saldo_inicial_estado", nullable = false, precision = 15, scale = 2)
-    private BigDecimal saldoInicialEstado;
+    @Column(name = "saldo_inicial", nullable = false, precision = 15, scale = 2)
+    private BigDecimal saldoInicial;
+
+    @Column(name = "estado",nullable = false)
+    private Boolean estado;
 }

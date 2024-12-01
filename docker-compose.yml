@@ -11,7 +11,47 @@ services:
       POSTGRES_DB: devsu
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - red-devsu-micro-servicio
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
     restart: always
+
+  persona-contenedor:
+    image: persona-contenedor:v1
+    container_name: persona-contenedor
+    build:
+      context: ./mc-persona-cliente/persona-contenedor
+      dockerfile: Dockerfile
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    ports:
+      - "8181:8181"
+    networks:
+      - red-devsu-micro-servicio
+
+  transacciones-contenedor:
+    image: transacciones-contenedor:v1
+    container_name: transacciones-contenedor
+    build:
+      context: ./mc-transacciones/transacciones-contenedor
+      dockerfile: Dockerfile
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    ports:
+      - "8182:8182"
+    networks:
+      - red-devsu-micro-servicio
 
 volumes:
   postgres-data:
+
+networks:
+  red-devsu-micro-servicio:
+    driver: bridge
