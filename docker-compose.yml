@@ -6,6 +6,7 @@ services:
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_DB: devsu
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: seya1922
     volumes:
@@ -19,6 +20,7 @@ services:
     networks:
       - red-devsu-micro-servicio
     restart: always
+
   persona-contenedor:
     image: persona-contenedor:v1
     container_name: persona-contenedor
@@ -30,6 +32,11 @@ services:
         condition: service_healthy
     ports:
       - "8181:8181"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://persona-contenedor:8181/actuator/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
     networks:
       - red-devsu-micro-servicio
 
@@ -42,8 +49,15 @@ services:
     depends_on:
       postgres-db:
         condition: service_healthy
+      persona-contenedor:
+        condition: service_healthy
     ports:
       - "8182:8182"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://transacciones-contenedor:8182/actuator/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
     networks:
       - red-devsu-micro-servicio
 
