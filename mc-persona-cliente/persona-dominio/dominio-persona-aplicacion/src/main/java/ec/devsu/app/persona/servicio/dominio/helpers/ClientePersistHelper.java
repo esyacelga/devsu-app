@@ -45,7 +45,7 @@ public class ClientePersistHelper {
     }
 
     @Transactional
-    public void elimininarCliente(UUID idCliente) throws PersonaDomainException, PersonaNotFoundDomainException {
+    public void elimininarCliente(UUID idCliente) throws  PersonaNotFoundDomainException {
         clientePersonaRepository.eliminarCliente(idCliente);
     }
 

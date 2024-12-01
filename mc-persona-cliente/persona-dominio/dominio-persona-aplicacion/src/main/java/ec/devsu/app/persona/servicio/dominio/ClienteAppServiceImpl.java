@@ -3,6 +3,9 @@ package ec.devsu.app.persona.servicio.dominio;
 import ec.devsu.app.persona.servicio.dominio.dto.request.RequestCliente;
 import ec.devsu.app.persona.servicio.dominio.dto.response.ResponseCliente;
 import ec.devsu.app.persona.servicio.dominio.dto.response.ResponseClientePersona;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaConstrainViolationException;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
 import ec.devsu.app.persona.servicio.dominio.handlers.ClientePersistCommandHandler;
 import ec.devsu.app.persona.servicio.dominio.handlers.ClienteQueryCommandHandler;
 import ec.devsu.app.persona.servicio.dominio.puertos.input.IClienteAppService;
@@ -27,22 +30,22 @@ public class ClienteAppServiceImpl implements IClienteAppService {
     }
 
     @Override
-    public ResponseCliente insertarCliente(RequestCliente cliente) {
+    public ResponseCliente insertarCliente(RequestCliente cliente) throws PersonaConstrainViolationException {
         return clienteCreateCommandHandler.insertarCliente(cliente);
     }
 
     @Override
-    public void elimininarCliente(UUID uuidCliente) {
+    public void elimininarCliente(UUID uuidCliente) throws PersonaNotFoundDomainException {
         clienteCreateCommandHandler.elimininarCliente(uuidCliente);
     }
 
     @Override
-    public ResponseCliente updateCliente(UUID idCliente, RequestCliente cliente) {
+    public ResponseCliente updateCliente(UUID idCliente, RequestCliente cliente) throws PersonaDomainException {
         return clienteCreateCommandHandler.updateCliente(idCliente, cliente);
     }
 
     @Override
-    public ResponseClientePersona buscarClientePorId(String uuidCliente) {
+    public ResponseClientePersona buscarClientePorId(String uuidCliente) throws PersonaNotFoundDomainException {
         return clienteQueryCommandHandler.buscarClientePorId(UUID.fromString(uuidCliente));
     }
 

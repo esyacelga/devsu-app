@@ -14,16 +14,16 @@ import java.util.UUID;
 @NoArgsConstructor
 public class RequestPersona {
     private UUID uuidPersona;
-    @NotNull
+    @NotNull (message = "El nombre de la persona no debe ser nula")
     private String nombre;
-    @NotNull
+    @NotNull (message = "El genero de la persona no debe ser nula")
     private String genero;
-    @NotNull
+    @NotNull (message = "La edad de la persona no debe ser nula")
     private String edad;
-    @NotNull
+    @NotNull (message = "La identificacion de la persona no debe ser nula")
     private String identificacion;
-    @NotNull
+    @NotNull (message = "La direccion de la persona no debe ser nula")
     private String direccion;
-    @NotNull
+    @NotNull (message = "El telefono de la persona no debe ser nula")
     private String telefono;
 }

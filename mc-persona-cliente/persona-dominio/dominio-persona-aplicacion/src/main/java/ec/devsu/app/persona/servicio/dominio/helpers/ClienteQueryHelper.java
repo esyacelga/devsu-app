@@ -17,7 +17,7 @@ public class ClienteQueryHelper {
         this.clientePersonaRepository = clientePersonaRepository;
     }
 
-    public ResponseClientePersona buscarClientePorId(UUID uuidCliente) {
+    public ResponseClientePersona buscarClientePorId(UUID uuidCliente) throws PersonaNotFoundDomainException {
         return clientePersonaRepository.buscarClientePorId(uuidCliente)
                 .map(cl -> ResponseClientePersona.builder()
                         .estado(cl.getEstado())

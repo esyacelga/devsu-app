@@ -5,7 +5,6 @@ import ec.devsu.app.persona.servicio.acceso.datos.entity.Persona;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IClienteRepository;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import ec.devsu.app.persona.servicio.dominio.dto.ClienteDto;
-import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
 import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaDomainRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -58,7 +57,7 @@ public class ClientePersonaDomainRepositoryImpl implements IClientePersonaDomain
     }
 
     @Override
-    public void eliminarCliente(UUID uuidCliente) throws PersonaDomainException, PersonaNotFoundDomainException {
+    public void eliminarCliente(UUID uuidCliente) throws PersonaNotFoundDomainException {
         try {
             clientePersonaRepository.eliminarCliente(uuidCliente);
         } catch (EntityNotFoundException e) {
@@ -102,7 +101,7 @@ public class ClientePersonaDomainRepositoryImpl implements IClientePersonaDomain
                     .estado(cl.getEstado())
                     .build();
         } catch (EntityNotFoundException exception) {
-            throw new PersonaNotFoundDomainException("Persona no encontrada: "+uuidCliente+" ", exception);
+            throw new PersonaNotFoundDomainException("Persona no encontrada: " + uuidCliente + " ", exception);
         }
     }
 

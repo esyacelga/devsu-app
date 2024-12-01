@@ -3,6 +3,8 @@ package ec.devsu.app.persona.servicio.dominio.handlers;
 import ec.devsu.app.persona.servicio.dominio.dto.request.RequestCliente;
 import ec.devsu.app.persona.servicio.dominio.dto.response.ResponseCliente;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaConstrainViolationException;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
 import ec.devsu.app.persona.servicio.dominio.helpers.ClientePersistHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,7 +20,7 @@ public class ClientePersistCommandHandler {
         this.clientePersistHelper = clientePersistHelper;
     }
 
-    public ResponseCliente insertarCliente(RequestCliente cliente) {
+    public ResponseCliente insertarCliente(RequestCliente cliente) throws PersonaConstrainViolationException {
         try {
             return clientePersistHelper.insertarCliente(cliente);
         } catch (Exception exception) {
@@ -26,11 +28,11 @@ public class ClientePersistCommandHandler {
         }
     }
 
-    public void elimininarCliente(UUID uuidCliente) {
+    public void elimininarCliente(UUID uuidCliente) throws PersonaNotFoundDomainException {
         clientePersistHelper.elimininarCliente(uuidCliente);
     }
 
-    public ResponseCliente updateCliente(UUID idCliente, RequestCliente cliente) {
+    public ResponseCliente updateCliente(UUID idCliente, RequestCliente cliente) throws PersonaDomainException {
         return clientePersistHelper.updateCliente(idCliente, cliente);
     }
 }

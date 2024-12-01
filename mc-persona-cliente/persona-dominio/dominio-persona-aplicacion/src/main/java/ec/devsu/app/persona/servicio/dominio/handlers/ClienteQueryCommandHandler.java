@@ -1,6 +1,7 @@
 package ec.devsu.app.persona.servicio.dominio.handlers;
 
 import ec.devsu.app.persona.servicio.dominio.dto.response.ResponseClientePersona;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
 import ec.devsu.app.persona.servicio.dominio.helpers.ClienteQueryHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class ClienteQueryCommandHandler {
         this.clienteQueryHelper = clienteQueryHelper;
     }
 
-    public ResponseClientePersona buscarClientePorId(UUID uuidCliente) {
+    public ResponseClientePersona buscarClientePorId(UUID uuidCliente) throws PersonaNotFoundDomainException {
         return clienteQueryHelper.buscarClientePorId(uuidCliente);
     }
 }
