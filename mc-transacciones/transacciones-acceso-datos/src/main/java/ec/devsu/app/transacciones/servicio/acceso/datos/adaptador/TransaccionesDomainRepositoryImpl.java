@@ -8,10 +8,12 @@ import ec.devsu.app.transacciones.servicio.acceso.datos.repository.IMovimientoRe
 import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
+import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ITransaccionesDomainRepository;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -26,7 +28,8 @@ public class TransaccionesDomainRepositoryImpl implements ITransaccionesDomainRe
 
     @Override
     public MovimientoRegistroDto insertarMovimiento(RequestMovimiento requestMovimiento, BigDecimal nuevoSaldo) {
-        Cuenta cuenta = cuentaRepository.obtenerCuentaPorNumero(requestMovimiento.getNumeroCuenta());
+        Optional<Cuenta> cuentaOptional = cuentaRepository.obtenerCuentaPorNumero(requestMovimiento.getNumeroCuenta());
+        Cuenta cuenta = cuentaOptional.orElseThrow(() -> new TransaccionDomainException("No se ha encontrado el numero de cuenta " + requestMovimiento.getNumeroCuenta() + " "));
         Movimientos movimientos = movimientoRepository.insertarMovimiento(Movimientos.builder()
                 .tipoMovimiento(requestMovimiento.getTipoMovimiento().getValue())
                 .cuenta(cuenta)

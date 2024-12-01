@@ -1,8 +1,10 @@
 package ec.devsu.app.transacciones.servicio.acceso.datos.repository;
 
 import ec.devsu.app.transacciones.servicio.acceso.datos.entity.Cuenta;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public interface ICuentaRepository {
 
@@ -10,11 +12,11 @@ public interface ICuentaRepository {
 
     Integer obtenerSiguienteSecuencial();
 
-    BigDecimal obtenerSaldoActual(String numeroCuenta);
+    Optional<BigDecimal> obtenerSaldoActual(String numeroCuenta);
 
-    Cuenta actualizarCuenta(Cuenta cuenta);
+    Cuenta actualizarCuenta(Cuenta cuenta) throws EntityNotFoundException;
 
-    Cuenta actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo);
+    void actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo) throws EntityNotFoundException;
 
-    Cuenta obtenerCuentaPorNumero(String numeroCuenta);
+    Optional<Cuenta> obtenerCuentaPorNumero(String numeroCuenta);
 }

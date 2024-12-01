@@ -36,23 +36,9 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>3.1.4</version>
-        </dependency>
+
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2023.0.3</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+
     <build>
         <plugins>
             <!-- Plugin para compilar el JAR con la clase principal -->
@@ -64,7 +50,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ec.org.isspol.siisspolweb.poa.certificacion.servicio.dominio.CertificacionServiceApplication</mainClass> <!-- Clase con el método main -->
+                            <mainClass>ec.devsu.app.transacciones.servicio.dominio.TransaccionesAppServiceImpl</mainClass> <!-- Clase con el método main -->
                         </manifest>
                     </archive>
                 </configuration>

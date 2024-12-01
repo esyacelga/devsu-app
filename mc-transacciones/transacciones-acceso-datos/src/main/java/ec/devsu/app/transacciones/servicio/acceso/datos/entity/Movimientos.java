@@ -26,7 +26,6 @@ public class Movimientos {
     @Column(name = "fecha_movimiento", nullable = false)
     private LocalDateTime fechaMovimiento;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_movimiento", nullable = false, length = 50)
     private String tipoMovimiento;
 

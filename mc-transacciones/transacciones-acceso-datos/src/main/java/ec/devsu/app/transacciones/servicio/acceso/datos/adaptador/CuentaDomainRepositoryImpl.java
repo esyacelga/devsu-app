@@ -9,6 +9,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaDomainRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -49,12 +50,19 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
 
     @Override
     public BigDecimal obtenerSaldoActual(String numeroCuenta) {
-        return cuentaDomainRepository.obtenerSaldoActual(numeroCuenta);
+        Optional<BigDecimal> saldoOptional = cuentaDomainRepository.obtenerSaldoActual(numeroCuenta);
+        return saldoOptional.orElseThrow(() -> new CuentaDomainException("Cuenta no ha sido encontrada"));
     }
 
     @Override
-    public CuentaDto actualizarCuenta(CuentaDto cuentaDto) {
-        Cuenta cuenta = cuentaDomainRepository.actualizarCuenta(Cuenta.builder().build());
+    public CuentaDto actualizarCuenta(CuentaDto cuentaDto) throws CuentaDomainException {
+        if (!esNumero(cuentaDto.getNumeroCuenta()))
+            throw new CuentaDomainException("No es un numero de cuenta valida");
+        Cuenta cuenta = cuentaDomainRepository.actualizarCuenta(Cuenta.builder()
+                .tipoCuenta(cuentaDto.getTipoCuenta().getTipo())
+                .numeroCuenta(cuentaDto.getNumeroCuenta())
+                .id(cuentaDto.getUuidCuenta())
+                .build());
         return CuentaDto.builder()
                 .uuidCuenta(cuenta.getId())
                 .saldo(cuenta.getSaldoInicialEstado())
@@ -62,23 +70,33 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
     }
 
     @Override
-    public CuentaDto actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo) {
-        Cuenta cuenta = cuentaDomainRepository.actualizarNuevoSaldo(numeroCuenta, nuevoSaldo);
-        return CuentaDto.builder()
-                .numeroCuenta(cuenta.getNumeroCuenta())
-                .uuidCuenta(cuenta.getId())
-                .build();
+    public void actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo) throws CuentaDomainException {
+        try {
+            cuentaDomainRepository.actualizarNuevoSaldo(numeroCuenta, nuevoSaldo);
+        } catch (EntityNotFoundException exception) {
+            throw new CuentaDomainException("No se ha encontrado la cuenta " + numeroCuenta + " ", exception);
+        }
+
+
     }
 
     @Override
-    public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) {
-        Cuenta cuenta = cuentaDomainRepository.obtenerCuentaPorNumero(numeroCuenta);
+    public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) throws CuentaDomainException {
+        Optional<Cuenta> cuentaOptional = cuentaDomainRepository.obtenerCuentaPorNumero(numeroCuenta);
+        Cuenta cuenta = cuentaOptional.orElseThrow(() ->
+                new CuentaDomainException("Persona no encontrada con la identificación especificada"));
         TipoCuenta d = TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase());
-
         return CuentaDto.builder()
                 .uuidCuenta(cuenta.getId())
                 .numeroCuenta(cuenta.getNumeroCuenta())
                 .tipoCuenta(TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase()))
                 .build();
+    }
+
+    public boolean esNumero(String cadena) {
+        if (cadena == null || cadena.isEmpty()) {
+            return false;
+        }
+        return cadena.matches("\\d+");
     }
 }

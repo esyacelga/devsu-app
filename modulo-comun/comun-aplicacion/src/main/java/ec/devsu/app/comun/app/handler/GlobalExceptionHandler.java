@@ -3,6 +3,8 @@ package ec.devsu.app.comun.app.handler;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaConstrainViolationException;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
+import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainException;
+import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -51,6 +53,16 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
+    @ExceptionHandler(CuentaDomainException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorDTO handleCuentaDomainException(CuentaDomainException ex) {
+        log.error(ex.getMessage(), ex);
+        return ErrorDTO.builder()
+                .code(HttpStatus.CONFLICT.getReasonPhrase())
+                .message(ex.getMessage())
+                .build();
+    }
+
     @ExceptionHandler(PersonaConstrainViolationException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorDTO handlePersonaConstrainViolationException(PersonaConstrainViolationException ex) {
@@ -63,6 +75,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PersonaNotFoundDomainException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorDTO handlePersonaNotFoundDomainException(PersonaNotFoundDomainException ex) {
+        log.error(ex.getMessage(), ex);
+        return ErrorDTO.builder()
+                .code(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .message(ex.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(TransaccionDomainException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDTO handleTransaccionDomainException(TransaccionDomainException ex) {
         log.error(ex.getMessage(), ex);
         return ErrorDTO.builder()
                 .code(HttpStatus.NOT_FOUND.getReasonPhrase())

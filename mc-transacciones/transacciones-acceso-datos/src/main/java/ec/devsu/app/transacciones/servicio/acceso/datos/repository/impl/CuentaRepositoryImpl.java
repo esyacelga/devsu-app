@@ -8,6 +8,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Repository
 public class CuentaRepositoryImpl implements ICuentaRepository {
@@ -24,24 +25,33 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
     public Integer obtenerSiguienteSecuencial() {
         String hql = "SELECT COALESCE(MAX(c.numeroCuenta), '0000') FROM Cuenta c";
         String ultimoSecuencial = entityManager.createQuery(hql, String.class).getSingleResult();
+        if (ultimoSecuencial == null)
+            return 1;
         return Integer.parseInt(ultimoSecuencial) + 1;
     }
 
     @Override
-    public BigDecimal obtenerSaldoActual(String numeroCuenta) {
+    public Optional<BigDecimal> obtenerSaldoActual(String numeroCuenta) {
         String hql = "SELECT c.saldoInicialEstado FROM Cuenta c WHERE c.numeroCuenta = :numeroCuenta";
-        return entityManager.createQuery(hql, BigDecimal.class)
+        return Optional.of(entityManager.createQuery(hql, BigDecimal.class)
                 .setParameter("numeroCuenta", numeroCuenta)
-                .getSingleResult();
+                .getSingleResult());
     }
 
 
     @Override
-    public Cuenta actualizarCuenta(Cuenta cuenta) {
+    public Cuenta actualizarCuenta(Cuenta cuenta) throws EntityNotFoundException {
+        Cuenta cu = entityManager.find(Cuenta.class, cuenta.getId());
+        if (cu == null) {
+            throw new EntityNotFoundException("No se encontró la cuenta con número " + cuenta.getNumeroCuenta());
+        }
+        cu.setTipoCuenta(cuenta.getTipoCuenta());
+        cu.setNumeroCuenta(cuenta.getNumeroCuenta());
         return entityManager.merge(cuenta);
     }
+
     @Override
-    public Cuenta actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo) {
+    public void actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo) throws EntityNotFoundException {
         String hql = "UPDATE Cuenta c SET c.saldoInicialEstado = :nuevoSaldo WHERE c.numeroCuenta = :numeroCuenta";
         int filasActualizadas = entityManager.createQuery(hql)
                 .setParameter("nuevoSaldo", nuevoSaldo)
@@ -50,14 +60,14 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
         if (filasActualizadas == 0) {
             throw new EntityNotFoundException("No se encontró la cuenta con número " + numeroCuenta);
         }
-        return obtenerCuentaPorNumero(numeroCuenta);
     }
 
     @Override
-    public Cuenta obtenerCuentaPorNumero(String numeroCuenta) {
+    public Optional<Cuenta> obtenerCuentaPorNumero(String numeroCuenta) {
         String hql = "SELECT c FROM Cuenta c WHERE c.numeroCuenta = :numeroCuenta";
-        return entityManager.createQuery(hql, Cuenta.class)
+        Cuenta cuenta = entityManager.createQuery(hql, Cuenta.class)
                 .setParameter("numeroCuenta", numeroCuenta)
                 .getSingleResult();
+        return Optional.of(cuenta);
     }
 }

@@ -6,14 +6,16 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActu
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import jakarta.validation.Valid;
 
 public interface ITransaccionesAppService {
 
-    ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta);
+    ResponseCuenta insertarCuentaPersona(@Valid RequestCuenta requestCuenta);
 
-    ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion);
+    ResponseCuenta actualizarCuentaPersona(@Valid RequestCuentaActualizacion cuentaActualizacion);
 
-    ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento);
-    CuentaDto obtenerCuentaPorNumero(String numeroCuenta);
+    ResponseMovimiento insertarMovimiento(@Valid RequestMovimiento requestMovimiento);
+
+    CuentaDto obtenerCuentaPorNumero(@Valid String numeroCuenta);
 
 }

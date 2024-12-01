@@ -2,6 +2,7 @@ package ec.devsu.app.transacciones.servicio.dominio.puertos.output;
 
 import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
+import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainException;
 
 import java.math.BigDecimal;
 
@@ -13,10 +14,10 @@ public interface ICuentaDomainRepository {
     BigDecimal obtenerSaldoActual(String numeroCuenta);
 
 
-    CuentaDto actualizarCuenta(CuentaDto cuentaDto);
+    CuentaDto actualizarCuenta(CuentaDto cuentaDto) throws CuentaDomainException;
 
-    CuentaDto actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo);
+    void actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo);
 
-    CuentaDto obtenerCuentaPorNumero(String numeroCuenta);
+    CuentaDto obtenerCuentaPorNumero(String numeroCuenta) throws CuentaDomainException;
 
 }
