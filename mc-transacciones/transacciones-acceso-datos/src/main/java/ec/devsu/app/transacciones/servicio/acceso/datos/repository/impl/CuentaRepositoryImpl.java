@@ -41,13 +41,18 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
 
     @Override
     public Cuenta actualizarCuenta(Cuenta cuenta) throws EntityNotFoundException {
-        Cuenta cu = entityManager.find(Cuenta.class, cuenta.getId());
-        if (cu == null) {
+        String hql = "UPDATE Cuenta c " +
+                "SET c.tipoCuenta = :tipoCuenta, c.numeroCuenta = :numeroCuenta, c.saldoInicialEstado=:saldo WHERE c.id = :id";
+        int updatedRows = entityManager.createQuery(hql)
+                .setParameter("tipoCuenta", cuenta.getTipoCuenta())
+                .setParameter("saldo", cuenta.getSaldoInicialEstado())
+                .setParameter("numeroCuenta", cuenta.getNumeroCuenta())
+                .setParameter("id", cuenta.getId())
+                .executeUpdate();
+        if (updatedRows == 0) {
             throw new EntityNotFoundException("No se encontró la cuenta con número " + cuenta.getNumeroCuenta());
         }
-        cu.setTipoCuenta(cuenta.getTipoCuenta());
-        cu.setNumeroCuenta(cuenta.getNumeroCuenta());
-        return entityManager.merge(cuenta);
+        return cuenta;
     }
 
     @Override

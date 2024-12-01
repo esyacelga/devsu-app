@@ -63,6 +63,7 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
         Cuenta cuenta = cuentaDomainRepository.actualizarCuenta(Cuenta.builder()
                 .tipoCuenta(cuentaDto.getTipoCuenta().getTipo())
                 .numeroCuenta(cuentaDto.getNumeroCuenta())
+                .saldoInicialEstado(cuentaDto.getSaldo())
                 .id(cuentaDto.getUuidCuenta())
                 .build());
         return CuentaDto.builder()

@@ -56,8 +56,9 @@ public class TransaccionPersistHelper {
         CuentaDto cuenta = cuentaRepository.obtenerCuentaPorNumero(cuentaActualizacion.getNumeroCuenta());
         CuentaDto cuentaDto = cuentaRepository.actualizarCuenta(CuentaDto.builder()
                 .uuidCuenta(cuenta.getUuidCuenta())
-                .tipoCuenta(cuenta.getTipoCuenta())
-                .saldo(cuenta.getSaldo())
+                .numeroCuenta(cuentaActualizacion.getNumeroCuenta())
+                .tipoCuenta(cuentaActualizacion.getTipoCuenta())
+                .saldo(cuentaActualizacion.getSaldo())
                 .build());
         return ResponseCuenta.builder()
                 .uuidCuenta(cuentaDto.getUuidCuenta())
