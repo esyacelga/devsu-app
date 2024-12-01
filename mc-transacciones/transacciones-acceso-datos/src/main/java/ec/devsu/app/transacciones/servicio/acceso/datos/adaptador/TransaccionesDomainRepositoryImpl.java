@@ -13,6 +13,7 @@ import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ITransacciones
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,7 +34,9 @@ public class TransaccionesDomainRepositoryImpl implements ITransaccionesDomainRe
         Movimientos movimientos = movimientoRepository.insertarMovimiento(Movimientos.builder()
                 .tipoMovimiento(requestMovimiento.getTipoMovimiento().getValue())
                 .cuenta(cuenta)
+                .id(UUID.randomUUID())
                 .saldo(nuevoSaldo)
+                .fechaMovimiento(LocalDateTime.now())
                 .valor(requestMovimiento.getValor())
                 .build());
         return MovimientoRegistroDto.builder()

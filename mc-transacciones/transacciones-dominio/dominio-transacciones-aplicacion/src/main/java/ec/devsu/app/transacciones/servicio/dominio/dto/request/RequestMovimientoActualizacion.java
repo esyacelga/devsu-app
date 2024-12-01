@@ -14,10 +14,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class RequestMovimientoActualizacion {
     private final UUID uuidMovimiento;
-    @NotNull
+    @NotNull(message = "El numero  de cuenta no puede estar en nulo")
     private final String numeroCuenta;
-    @NotNull
+    @NotNull(message = "El tipoMovimiento  de cuenta no puede estar en nulo")
     private final TipoMovimiento tipoMovimiento;
-    @NotNull
+    @NotNull(message = "El valor no puede estar en nulo")
     private BigDecimal valor;
 }

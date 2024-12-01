@@ -83,11 +83,11 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(TransaccionDomainException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDTO handleTransaccionDomainException(TransaccionDomainException ex) {
         log.error(ex.getMessage(), ex);
         return ErrorDTO.builder()
-                .code(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .code(HttpStatus.BAD_REQUEST.getReasonPhrase())
                 .message(ex.getMessage())
                 .build();
     }

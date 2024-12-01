@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 public class RequestMovimiento {
-    @NotNull
+    @NotNull(message = "El numero de cuenta no puede estar en nulo")
     private final String numeroCuenta;
-    @NotNull
+    @NotNull(message = "El tipo de movimiento no puede estar en nulo")
     private final TipoMovimiento tipoMovimiento;
-    @NotNull
+    @NotNull(message = "El valor del movimiento no puede estar en nulo")
     private BigDecimal valor;
 }
