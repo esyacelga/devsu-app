@@ -10,6 +10,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaDomainRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -85,15 +86,19 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
 
     @Override
     public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) throws CuentaDomainException {
-        Optional<Cuenta> cuentaOptional = cuentaDomainRepository.obtenerCuentaPorNumero(numeroCuenta);
-        Cuenta cuenta = cuentaOptional.orElseThrow(() ->
-                new CuentaDomainException("Persona no encontrada con la identificación especificada"));
-        return CuentaDto.builder()
-                .uuidCuenta(cuenta.getId())
-                .numeroCuenta(cuenta.getNumeroCuenta())
-                .saldo(cuenta.getSaldoInicialEstado())
-                .tipoCuenta(TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase()))
-                .build();
+        try {
+            Optional<Cuenta> cuentaOptional = cuentaDomainRepository.obtenerCuentaPorNumero(numeroCuenta);
+            Cuenta cuenta = cuentaOptional.orElseThrow(() ->
+                    new CuentaDomainException("cuenta no encontrada"));
+            return CuentaDto.builder()
+                    .uuidCuenta(cuenta.getId())
+                    .numeroCuenta(cuenta.getNumeroCuenta())
+                    .saldo(cuenta.getSaldoInicialEstado())
+                    .tipoCuenta(TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase()))
+                    .build();
+        } catch (EmptyResultDataAccessException exception) {
+            throw new CuentaDomainException("Cuenta no encontrada con numero: " + numeroCuenta + " ", exception);
+        }
     }
 
     public boolean esNumero(String cadena) {
