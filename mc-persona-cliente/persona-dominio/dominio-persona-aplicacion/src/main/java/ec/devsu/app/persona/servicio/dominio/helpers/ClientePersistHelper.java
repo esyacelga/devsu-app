@@ -45,13 +45,20 @@ public class ClientePersistHelper {
     }
 
     @Transactional
-    public void elimininarCliente(UUID idCliente) throws  PersonaNotFoundDomainException {
+    public void elimininarCliente(UUID idCliente) throws PersonaNotFoundDomainException {
         clientePersonaRepository.eliminarCliente(idCliente);
+    }
+
+    public boolean stringToBoolean(String value) {
+        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+            throw new PersonaDomainException("Entrada invalida, el estado puede ser true o false" + value);
+        }
+        return "1".equals(value) || "true".equalsIgnoreCase(value);
     }
 
     @Transactional
     public ResponseCliente updateCliente(UUID idCliente, RequestCliente cliente) throws PersonaDomainException {
-
+        stringToBoolean(cliente.getEstado());
         ClienteDto clP = clientePersonaRepository.actualizarCliente(idCliente, ClienteDto.builder()
                 .direccion(cliente.getDireccion())
                 .genero(cliente.getGenero())

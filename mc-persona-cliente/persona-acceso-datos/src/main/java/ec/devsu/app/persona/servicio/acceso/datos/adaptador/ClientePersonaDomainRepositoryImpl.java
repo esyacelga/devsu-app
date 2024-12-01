@@ -5,6 +5,7 @@ import ec.devsu.app.persona.servicio.acceso.datos.entity.Persona;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IClienteRepository;
 import ec.devsu.app.persona.servicio.acceso.datos.repository.IPersonaRepository;
 import ec.devsu.app.persona.servicio.dominio.dto.ClienteDto;
+import ec.devsu.app.persona.servicio.dominio.exception.PersonaDomainException;
 import ec.devsu.app.persona.servicio.dominio.exception.PersonaNotFoundDomainException;
 import ec.devsu.app.persona.servicio.dominio.puertos.output.IClientePersonaDomainRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -72,7 +73,7 @@ public class ClientePersonaDomainRepositoryImpl implements IClientePersonaDomain
                 .cliente(Cliente.builder()
                         .clienteid(UUID.randomUUID())
                         .contrasenia(clienteDto.getPassword())
-                        .estado(clienteDto.getEstado()).build())
+                        .estado(Boolean.TRUE).build())
                 .identificacion(clienteDto.getIdentificacion())
                 .nombre(clienteDto.getNombre())
                 .telefono(clienteDto.getTelefono())
@@ -89,21 +90,27 @@ public class ClientePersonaDomainRepositoryImpl implements IClientePersonaDomain
 
     }
 
+
     @Override
     public ClienteDto actualizarCliente(UUID uuidCliente, ClienteDto clienteDto) throws PersonaNotFoundDomainException {
         try {
             Cliente cl = clientePersonaRepository.actualizar(uuidCliente, Cliente.builder()
-                    .estado(clienteDto.getEstado())
+                    .estado(stringToBoolean(clienteDto.getEstado()))
                     .contrasenia(clienteDto.getPassword())
                     .build());
             return ClienteDto.builder()
                     .uuidCliente(cl.getClienteid())
-                    .estado(cl.getEstado())
+                    .estado(cl.getEstado().toString())
                     .build();
         } catch (EntityNotFoundException exception) {
             throw new PersonaNotFoundDomainException("Persona no encontrada: " + uuidCliente + " ", exception);
         }
     }
 
-
+    public boolean stringToBoolean(String value) {
+        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+            throw new PersonaDomainException("Entrada invalida, el estado puede ser true o false" + value);
+        }
+        return "1".equals(value) || "true".equalsIgnoreCase(value);
+    }
 }

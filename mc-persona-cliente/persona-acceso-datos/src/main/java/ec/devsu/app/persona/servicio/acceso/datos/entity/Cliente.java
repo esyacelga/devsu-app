@@ -25,5 +25,5 @@ public class Cliente {
     private String contrasenia;
 
     @Column(nullable = false)
-    private String estado;
+    private Boolean estado;
 }
