@@ -4,6 +4,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.input.ITransaccionesAppService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class MovimientosController {
     }
 
     @GetMapping("/{uuidMovimiento}")
-    public MovimientoRegistroDto movimientoRegistroDto(@PathVariable String uuidMovimiento) {
+    public MovimientoRegistroDto movimientoRegistroDto(@PathVariable String uuidMovimiento) throws TransaccionDomainException {
         return transaccionesAppService.buscarMovimientoPorId(UUID.fromString(uuidMovimiento));
     }
 }

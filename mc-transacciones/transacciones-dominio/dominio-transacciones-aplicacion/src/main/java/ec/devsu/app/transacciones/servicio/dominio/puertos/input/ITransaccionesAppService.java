@@ -8,6 +8,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import jakarta.validation.Valid;
 
@@ -15,15 +16,15 @@ import java.util.UUID;
 
 public interface ITransaccionesAppService {
 
-    ResponseCuenta insertarCuentaPersona(@Valid RequestCuenta requestCuenta);
+    ResponseCuenta insertarCuentaPersona(@Valid RequestCuenta requestCuenta) throws CuentaDomainException;
 
-    ResponseCuenta actualizarCuentaPersona(@Valid RequestCuentaActualizacion cuentaActualizacion);
+    ResponseCuenta actualizarCuentaPersona(@Valid RequestCuentaActualizacion cuentaActualizacion) throws CuentaDomainException;
 
-    ResponseMovimiento insertarMovimiento(@Valid RequestMovimiento requestMovimiento);
+    ResponseMovimiento insertarMovimiento(@Valid RequestMovimiento requestMovimiento) throws TransaccionDomainException;
 
-    CuentaDto obtenerCuentaPorNumero(@Valid String numeroCuenta);
+    CuentaDto obtenerCuentaPorNumero(@Valid String numeroCuenta) throws CuentaDomainException;
 
-    public MovimientoRegistroDto buscarMovimientoPorId(@Valid UUID uuidMovimiento);
+    public MovimientoRegistroDto buscarMovimientoPorId(@Valid UUID uuidMovimiento) throws TransaccionDomainException;
 
     public ResponseMovimiento actualizarMovimiento(@Valid RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException;
 }

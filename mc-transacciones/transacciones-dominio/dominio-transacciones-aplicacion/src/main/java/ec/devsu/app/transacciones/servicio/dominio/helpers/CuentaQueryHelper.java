@@ -1,6 +1,7 @@
 package ec.devsu.app.transacciones.servicio.dominio.helpers;
 
 import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
+import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaDomainRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,8 @@ public class CuentaQueryHelper {
     public CuentaDto obtenerCuentaPersona(String numeroCuenta) {
         return cuentaRepository.obtenerCuentaPorNumero(numeroCuenta);
     }
-    public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) {
+
+    public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) throws CuentaDomainException {
         return cuentaRepository.obtenerCuentaPorNumero(numeroCuenta);
     }
 }

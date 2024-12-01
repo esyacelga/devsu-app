@@ -8,6 +8,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.handlers.CuentaQueryCommandHandler;
 import ec.devsu.app.transacciones.servicio.dominio.handlers.TransaccionPersistCommandHandler;
@@ -36,36 +37,36 @@ public class TransaccionesAppServiceImpl implements ITransaccionesAppService {
     }
 
     @Override
-    public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) {
+    public CuentaDto obtenerCuentaPorNumero(String numeroCuenta) throws CuentaDomainException {
         return cuentaQueryCommandHandler.obtenerCuentaPorNumero(numeroCuenta);
     }
 
     @Override
-    public MovimientoRegistroDto buscarMovimientoPorId(UUID uuidMovimiento) {
+    public MovimientoRegistroDto buscarMovimientoPorId(UUID uuidMovimiento) throws TransaccionDomainException {
         return transaccionesQueryCommandHandler.buscarMovimientoPorId(uuidMovimiento);
 
     }
 
     @Override
     public ResponseMovimiento actualizarMovimiento(RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException {
-        MovimientoRegistroDto movimientoRegistroDto =  transaccionPersistCommandHandler.actualizarMovimiento(requestMovimiento);
-         return ResponseMovimiento.builder()
-                 .mensaje("Movimiento actualizado con exito")
-                 .uuidMovimiento(movimientoRegistroDto.getUuidMovimiento()).build();
+        MovimientoRegistroDto movimientoRegistroDto = transaccionPersistCommandHandler.actualizarMovimiento(requestMovimiento);
+        return ResponseMovimiento.builder()
+                .mensaje("Movimiento actualizado con exito")
+                .uuidMovimiento(movimientoRegistroDto.getUuidMovimiento()).build();
     }
 
     @Override
-    public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) {
+    public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) throws CuentaDomainException {
         return transaccionPersistCommandHandler.insertarCuentaPersona(requestCuenta);
     }
 
     @Override
-    public ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion) {
+    public ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion) throws CuentaDomainException {
         return transaccionPersistCommandHandler.actualizarCuentaPersona(cuentaActualizacion);
     }
 
     @Override
-    public ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento) {
+    public ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento) throws TransaccionDomainException{
         return transaccionPersistCommandHandler.insertarMovimiento(requestMovimiento);
     }
 

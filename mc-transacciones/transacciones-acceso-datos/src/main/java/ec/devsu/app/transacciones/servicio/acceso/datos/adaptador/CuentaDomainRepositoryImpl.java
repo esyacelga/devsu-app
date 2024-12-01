@@ -28,7 +28,7 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
     }
 
     @Override
-    public CuentaDto insertarCuentaPersona(RequestCuenta requestCuenta, String numeroCuenta) {
+    public CuentaDto insertarCuentaPersona(RequestCuenta requestCuenta, String numeroCuenta) throws CuentaDomainException {
         Optional<Persona> personaOptional = personaRepository.findByIdentificacion(requestCuenta.getIdentificacion());
         Persona personaBD = personaOptional.orElseThrow(() ->
                 new CuentaDomainException("Persona no encontrada con la identificación especificada"));

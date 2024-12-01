@@ -1,6 +1,7 @@
 package ec.devsu.app.transacciones.servicio.dominio.handlers;
 
 import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
+import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.helpers.CuentaQueryHelper;
 import ec.devsu.app.transacciones.servicio.dominio.helpers.TransaccionQueryHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ public class TransaccionesQueryCommandHandler {
         this.cuentaQueryHelper = cuentaQueryHelper;
     }
 
-    public MovimientoRegistroDto buscarMovimientoPorId(UUID uuidMovimiento) {
+    public MovimientoRegistroDto buscarMovimientoPorId(UUID uuidMovimiento) throws TransaccionDomainException {
         return cuentaQueryHelper.buscarMovimientoPorId(uuidMovimiento);
     }
 }

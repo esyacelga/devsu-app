@@ -7,6 +7,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.helpers.CuentaQueryHelper;
 import ec.devsu.app.transacciones.servicio.dominio.helpers.TransaccionPersistHelper;
@@ -25,21 +26,22 @@ public class TransaccionPersistCommandHandler {
     }
 
 
-    public ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento) {
+    public ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento) throws TransaccionDomainException {
         return transaccionPersistHelper.insertarMovimiento(requestMovimiento);
     }
 
-    public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) {
+    public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) throws CuentaDomainException {
         return transaccionPersistHelper.insertarCuentaPersona(requestCuenta);
     }
 
-    public ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion) {
+    public ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion) throws CuentaDomainException {
         return transaccionPersistHelper.actualizarCuentaPersona(RequestCuentaActualizacion.builder()
                 .tipoCuenta(cuentaActualizacion.getTipoCuenta())
                 .numeroCuenta(cuentaActualizacion.getNumeroCuenta())
                 .saldo(cuentaActualizacion.getSaldo())
                 .build());
     }
+
     public MovimientoRegistroDto actualizarMovimiento(RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException {
         return transaccionPersistHelper.actualizarMovimiento(requestMovimiento);
     }

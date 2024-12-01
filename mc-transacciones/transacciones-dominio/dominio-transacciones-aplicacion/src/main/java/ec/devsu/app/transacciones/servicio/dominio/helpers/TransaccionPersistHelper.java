@@ -9,6 +9,7 @@ import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.response.ResponseMovimiento;
+import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ICuentaDomainRepository;
 import ec.devsu.app.transacciones.servicio.dominio.puertos.output.ITransaccionesDomainRepository;
@@ -36,7 +37,7 @@ public class TransaccionPersistHelper {
     }
 
     @Transactional
-    public ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento) {
+    public ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento) throws TransaccionDomainException {
         BigDecimal saldoActual = cuentaRepository.obtenerSaldoActual(requestMovimiento.getNumeroCuenta());
 
         if (requestMovimiento.getTipoMovimiento() == TipoMovimiento.DEBITO &&
@@ -58,7 +59,7 @@ public class TransaccionPersistHelper {
     }
 
     @Transactional
-    public ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion) {
+    public ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion) throws CuentaDomainException {
         CuentaDto cuenta = cuentaRepository.obtenerCuentaPorNumero(cuentaActualizacion.getNumeroCuenta());
         CuentaDto cuentaDto = cuentaRepository.actualizarCuenta(CuentaDto.builder()
                 .uuidCuenta(cuenta.getUuidCuenta())
@@ -73,7 +74,7 @@ public class TransaccionPersistHelper {
     }
 
     @Transactional
-    public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) {
+    public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) throws CuentaDomainException {
         Integer numeroCuenta = cuentaRepository.obtenerSiguienteSecuencial();
         if (numeroCuenta == null) {
             numeroCuenta = 1;
