@@ -50,8 +50,8 @@ public class ClientePersistHelper {
     }
 
     public boolean stringToBoolean(String value) {
-        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
-            throw new PersonaDomainException("Entrada invalida, el estado puede ser true o false" + value);
+        if (!"1".equals(value) && !"0".equals(value) && !"true".equalsIgnoreCase(value) && !"false".equalsIgnoreCase(value)) {
+            throw new PersonaDomainException("Entrada inválida, el estado puede ser 'true', 'false', '1' o '0'");
         }
         return "1".equals(value) || "true".equalsIgnoreCase(value);
     }
