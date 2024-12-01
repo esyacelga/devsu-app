@@ -15,7 +15,7 @@ public class RequestCuentaActualizacion {
     @NotNull(message = "El numero de cuenta no puede estar en nulo")
     private final String numeroCuenta;
     @NotNull(message = "El tipo de cuenta no puede estar en nulo")
-    private final TipoCuenta tipoCuenta;
+    private final String tipoCuenta;
     @NotNull(message = "El saldo no puede estar en nulo")
     private final BigDecimal saldo;
 }

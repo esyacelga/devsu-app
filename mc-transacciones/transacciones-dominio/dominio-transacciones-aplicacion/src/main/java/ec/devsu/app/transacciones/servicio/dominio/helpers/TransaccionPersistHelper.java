@@ -67,10 +67,17 @@ public class TransaccionPersistHelper {
     @Transactional
     public ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion) throws CuentaDomainException {
         CuentaDto cuenta = cuentaRepository.obtenerCuentaPorNumero(cuentaActualizacion.getNumeroCuenta());
+        try {
+            TipoCuenta.valueOf(cuentaActualizacion.getTipoCuenta());
+        } catch (IllegalArgumentException ex) {
+            throw new CuentaDomainException("El tipo de cuenta valido es AHORROS, CORRIENTE", ex);
+        }
+
+
         CuentaDto cuentaDto = cuentaRepository.actualizarCuenta(CuentaDto.builder()
                 .uuidCuenta(cuenta.getUuidCuenta())
                 .numeroCuenta(cuentaActualizacion.getNumeroCuenta())
-                .tipoCuenta(cuentaActualizacion.getTipoCuenta())
+                .tipoCuenta(TipoCuenta.valueOf(cuentaActualizacion.getTipoCuenta()))
                 .saldo(cuentaActualizacion.getSaldo())
                 .build());
         return ResponseCuenta.builder()
