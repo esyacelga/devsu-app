@@ -8,19 +8,17 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: seya1922
-      POSTGRES_DB: devsu
     volumes:
-      - postgres-data:/var/lib/postgresql/data
-      - ./init-scripts:/docker-entrypoint-initdb.d
-    networks:
-      - red-devsu-micro-servicio
+      - postgres-data:/var/lib/postgresql/data-01
+      - ./init-db:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 3s
       retries: 5
+    networks:
+      - red-devsu-micro-servicio
     restart: always
-
   persona-contenedor:
     image: persona-contenedor:v1
     container_name: persona-contenedor

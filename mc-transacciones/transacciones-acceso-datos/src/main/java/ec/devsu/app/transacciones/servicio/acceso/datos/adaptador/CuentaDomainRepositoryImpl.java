@@ -38,7 +38,7 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
                 .id(UUID.randomUUID())
                 .numeroCuenta(numeroCuenta)
                 .persona(personaBD)
-                .saldoInicialEstado(requestCuenta.getSaldo())
+                .saldoInicial(requestCuenta.getSaldo())
                 .build());
         return CuentaDto.builder()
                 .numeroCuenta(cuenta.getNumeroCuenta())
@@ -64,12 +64,12 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
         Cuenta cuenta = cuentaDomainRepository.actualizarCuenta(Cuenta.builder()
                 .tipoCuenta(cuentaDto.getTipoCuenta().getTipo())
                 .numeroCuenta(cuentaDto.getNumeroCuenta())
-                .saldoInicialEstado(cuentaDto.getSaldo())
+                .saldoInicial(cuentaDto.getSaldo())
                 .id(cuentaDto.getUuidCuenta())
                 .build());
         return CuentaDto.builder()
                 .uuidCuenta(cuenta.getId())
-                .saldo(cuenta.getSaldoInicialEstado())
+                .saldo(cuenta.getSaldoInicial())
                 .build();
     }
 
@@ -93,7 +93,7 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
             return CuentaDto.builder()
                     .uuidCuenta(cuenta.getId())
                     .numeroCuenta(cuenta.getNumeroCuenta())
-                    .saldo(cuenta.getSaldoInicialEstado())
+                    .saldo(cuenta.getSaldoInicial())
                     .tipoCuenta(TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase()))
                     .build();
         } catch (EmptyResultDataAccessException exception) {

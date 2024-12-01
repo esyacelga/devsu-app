@@ -11,7 +11,6 @@
 
     <artifactId>persona-contenedor</artifactId>
 
-
     <dependencies>
         <dependency>
             <groupId>app.devsu.ec</groupId>
@@ -36,13 +35,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Plugin para compilar el JAR con la clase principal -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -51,13 +49,11 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ec.devsu.app.persona.servicio.dominio.ClienteAppServiceImpl</mainClass> <!-- Clase con el método main -->
+                            <mainClass>ec.devsu.app.persona.servicio.contendor.ClientePersonaServiceApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
-
-            <!-- Plugin para crear un JAR ejecutable con Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

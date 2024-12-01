@@ -45,7 +45,7 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
                 "SET c.tipoCuenta = :tipoCuenta, c.numeroCuenta = :numeroCuenta, c.saldoInicialEstado=:saldo WHERE c.id = :id";
         int updatedRows = entityManager.createQuery(hql)
                 .setParameter("tipoCuenta", cuenta.getTipoCuenta())
-                .setParameter("saldo", cuenta.getSaldoInicialEstado())
+                .setParameter("saldo", cuenta.getSaldoInicial())
                 .setParameter("numeroCuenta", cuenta.getNumeroCuenta())
                 .setParameter("id", cuenta.getId())
                 .executeUpdate();

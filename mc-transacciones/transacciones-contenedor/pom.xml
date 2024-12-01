@@ -50,7 +50,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ec.devsu.app.transacciones.servicio.dominio.TransaccionesAppServiceImpl</mainClass> <!-- Clase con el método main -->
+                            <mainClass>ec.devsu.app.transacciones.servicio.contendor.TransaccionesServiceApplication</mainClass> <!-- Clase con el método main -->
                         </manifest>
                     </archive>
                 </configuration>

@@ -9,6 +9,10 @@ logging:
     ec.devsu.app: DEBUG
 
 spring:
+  sql:
+    init:
+      mode: ALWAYS
+      schema-locations: classpath:init-schema.sql
   mvc:
     view:
       prefix:
