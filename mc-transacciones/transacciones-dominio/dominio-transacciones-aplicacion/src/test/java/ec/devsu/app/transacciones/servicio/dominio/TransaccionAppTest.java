@@ -59,7 +59,8 @@ public class TransaccionAppTest {
                         .build());
 
         ResponseCuenta responseCuenta = transaccionesAppService.insertarCuentaPersona(RequestCuenta.builder()
-                .tipoCuenta(TipoCuenta.AHORROS)
+                .tipoCuenta(TipoCuenta.AHORROS.getTipo())
+                .saldo(new BigDecimal(1000))
                 .identificacion("1721737243")
                 .build());
 
@@ -87,7 +88,7 @@ public class TransaccionAppTest {
                         .build());
 
         ResponseCuenta responseCuenta = transaccionesAppService.actualizarCuentaPersona(RequestCuentaActualizacion.builder()
-                .tipoCuenta(TipoCuenta.AHORROS)
+                .tipoCuenta(TipoCuenta.AHORROS.getTipo())
                 .numeroCuenta("00001")
                 .saldo(new BigDecimal(1000))
                 .build());
@@ -99,18 +100,19 @@ public class TransaccionAppTest {
     public void registrarMovimiento() {
         when(cuentaRepository.obtenerSaldoActual(eq("001001")))
                 .thenReturn(new BigDecimal(10000));
-        when(transaccionesRepository.insertarMovimiento(any(RequestMovimiento.class),any(BigDecimal.class)))
+        when(transaccionesRepository.insertarMovimiento(any(RequestMovimiento.class), any(BigDecimal.class)))
                 .thenReturn(MovimientoRegistroDto.builder()
                         .uuidMovimiento(UUID.randomUUID())
                         .valor(new BigDecimal(9000))
                         .build());
         ResponseMovimiento responseMovimiento = transaccionesAppService.insertarMovimiento(RequestMovimiento.builder()
-                .tipoMovimiento(TipoMovimiento.DEBITO)
+                .tipoMovimiento(TipoMovimiento.DEBITO.getValue())
                 .valor(new BigDecimal(1000))
                 .numeroCuenta("001001")
                 .build());
         assertEquals("Movimiento Registrado exitosamente", responseMovimiento.getMensaje());
     }
+
     @Test
     @DisplayName("Registrar movimiento sin saldo")
     public void registrarMovimientoSinSaldo() {
@@ -118,7 +120,7 @@ public class TransaccionAppTest {
                 .thenReturn(new BigDecimal(10));
         TransaccionDomainException transaccionDomainException = assertThrows(TransaccionDomainException.class,
                 () -> transaccionesAppService.insertarMovimiento(RequestMovimiento.builder()
-                        .tipoMovimiento(TipoMovimiento.DEBITO)
+                        .tipoMovimiento(TipoMovimiento.DEBITO.getValue())
                         .valor(new BigDecimal(1000))
                         .numeroCuenta("001001")
                         .build()));
