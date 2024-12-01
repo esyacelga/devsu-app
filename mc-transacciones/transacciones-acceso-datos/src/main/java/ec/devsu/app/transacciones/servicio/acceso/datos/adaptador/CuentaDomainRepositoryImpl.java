@@ -87,10 +87,10 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
         Optional<Cuenta> cuentaOptional = cuentaDomainRepository.obtenerCuentaPorNumero(numeroCuenta);
         Cuenta cuenta = cuentaOptional.orElseThrow(() ->
                 new CuentaDomainException("Persona no encontrada con la identificación especificada"));
-        TipoCuenta d = TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase());
         return CuentaDto.builder()
                 .uuidCuenta(cuenta.getId())
                 .numeroCuenta(cuenta.getNumeroCuenta())
+                .saldo(cuenta.getSaldoInicialEstado())
                 .tipoCuenta(TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase()))
                 .build();
     }
