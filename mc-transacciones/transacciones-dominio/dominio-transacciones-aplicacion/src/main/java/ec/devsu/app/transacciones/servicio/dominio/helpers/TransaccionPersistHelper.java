@@ -1,5 +1,6 @@
 package ec.devsu.app.transacciones.servicio.dominio.helpers;
 
+import ec.devsu.app.excepcion.comun.dominio.valor.TipoCuenta;
 import ec.devsu.app.excepcion.comun.dominio.valor.TipoMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
@@ -39,14 +40,19 @@ public class TransaccionPersistHelper {
     @Transactional
     public ResponseMovimiento insertarMovimiento(RequestMovimiento requestMovimiento) throws TransaccionDomainException {
         BigDecimal saldoActual = cuentaRepository.obtenerSaldoActual(requestMovimiento.getNumeroCuenta());
+        TipoMovimiento tipoMovimiento;
+        try {
+            tipoMovimiento = TipoMovimiento.valueOf(requestMovimiento.getTipoMovimiento());
+        } catch (IllegalArgumentException ex) {
+            throw new TransaccionDomainException("Tipo de movimiento incorrecto, tipo de movimiento correcto es DEBITO o CREDITO ", ex);
+        }
 
-        if (requestMovimiento.getTipoMovimiento() == TipoMovimiento.DEBITO &&
+        if (tipoMovimiento == TipoMovimiento.DEBITO &&
                 saldoActual.compareTo(requestMovimiento.getValor()) < 0) {
             throw new TransaccionDomainException("Saldo insuficiente");
         }
 
-
-        BigDecimal nuevoSaldo = requestMovimiento.getTipoMovimiento() == TipoMovimiento.CREDITO
+        BigDecimal nuevoSaldo = tipoMovimiento == TipoMovimiento.CREDITO
                 ? saldoActual.add(requestMovimiento.getValor())
                 : saldoActual.subtract(requestMovimiento.getValor());
 
@@ -75,6 +81,12 @@ public class TransaccionPersistHelper {
 
     @Transactional
     public ResponseCuenta insertarCuentaPersona(RequestCuenta requestCuenta) throws CuentaDomainException {
+        try {
+            TipoCuenta.valueOf(requestCuenta.getTipoCuenta());
+        } catch (IllegalArgumentException ex) {
+            throw new CuentaDomainException("El tipo de cuenta debe ser DEBITO, CREDITO", ex);
+        }
+
         Integer numeroCuenta = cuentaRepository.obtenerSiguienteSecuencial();
         if (numeroCuenta == null) {
             numeroCuenta = 1;

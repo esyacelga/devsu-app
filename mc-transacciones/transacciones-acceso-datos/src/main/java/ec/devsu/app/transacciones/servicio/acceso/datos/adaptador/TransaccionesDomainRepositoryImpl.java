@@ -32,7 +32,7 @@ public class TransaccionesDomainRepositoryImpl implements ITransaccionesDomainRe
         Optional<Cuenta> cuentaOptional = cuentaRepository.obtenerCuentaPorNumero(requestMovimiento.getNumeroCuenta());
         Cuenta cuenta = cuentaOptional.orElseThrow(() -> new TransaccionDomainException("No se ha encontrado el numero de cuenta " + requestMovimiento.getNumeroCuenta() + " "));
         Movimientos movimientos = movimientoRepository.insertarMovimiento(Movimientos.builder()
-                .tipoMovimiento(requestMovimiento.getTipoMovimiento().getValue())
+                .tipoMovimiento(requestMovimiento.getTipoMovimiento())
                 .cuenta(cuenta)
                 .id(UUID.randomUUID())
                 .saldo(nuevoSaldo)

@@ -33,7 +33,7 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
         Persona personaBD = personaOptional.orElseThrow(() ->
                 new CuentaDomainException("Persona no encontrada con la identificación especificada"));
         Cuenta cuenta = cuentaDomainRepository.insertarCuentaPersona(Cuenta.builder()
-                .tipoCuenta(requestCuenta.getTipoCuenta().getTipo())
+                .tipoCuenta(requestCuenta.getTipoCuenta())
                 .id(UUID.randomUUID())
                 .numeroCuenta(numeroCuenta)
                 .persona(personaBD)

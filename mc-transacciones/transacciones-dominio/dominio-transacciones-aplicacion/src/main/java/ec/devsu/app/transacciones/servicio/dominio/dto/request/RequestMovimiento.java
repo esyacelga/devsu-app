@@ -15,7 +15,7 @@ public class RequestMovimiento {
     @NotNull(message = "El numero de cuenta no puede estar en nulo")
     private final String numeroCuenta;
     @NotNull(message = "El tipo de movimiento no puede estar en nulo")
-    private final TipoMovimiento tipoMovimiento;
+    private final String tipoMovimiento;
     @NotNull(message = "El valor del movimiento no puede estar en nulo")
     private BigDecimal valor;
 }
