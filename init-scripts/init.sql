@@ -1,7 +1,5 @@
-CREATE DATABASE devsu
-    WITH
-    OWNER postgres
-    ENCODING 'UTF8'
-    LC_COLLATE='en_US.utf8'
-    LC_CTYPE='en_US.utf8'
-    TEMPLATE template0;
+CREATE USER devsu WITH PASSWORD 'devsu';
+
+CREATE DATABASE devsu OWNER devsu;
+
+GRANT ALL PRIVILEGES ON DATABASE devsu TO devsu;
