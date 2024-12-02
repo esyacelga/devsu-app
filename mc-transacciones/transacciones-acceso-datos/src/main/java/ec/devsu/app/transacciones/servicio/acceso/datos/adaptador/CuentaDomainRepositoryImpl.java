@@ -96,6 +96,7 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
                     .uuidCuenta(cuenta.getId())
                     .numeroCuenta(cuenta.getNumeroCuenta())
                     .saldo(cuenta.getSaldoInicial())
+                    .estado(cuenta.getEstado())
                     .tipoCuenta(TipoCuenta.valueOf(cuenta.getTipoCuenta().toUpperCase()))
                     .build();
         } catch (EmptyResultDataAccessException exception) {

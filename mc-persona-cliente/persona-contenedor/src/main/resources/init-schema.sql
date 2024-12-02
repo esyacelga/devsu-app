@@ -2,7 +2,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS public.persona
 (
-    id             UUID         NOT NULL, -- ID generado desde la aplicación
+    id             UUID         NOT NULL,
     nombre         VARCHAR(255) NOT NULL,
     genero         VARCHAR(50)  NOT NULL,
     edad           VARCHAR(255) NOT NULL,
@@ -19,7 +19,7 @@ ALTER TABLE IF EXISTS public.persona
 -- Tabla Cliente
 CREATE TABLE IF NOT EXISTS public.cliente
 (
-    clienteid   UUID         NOT NULL, -- ID generado desde la aplicación
+    clienteid   UUID         NOT NULL,
     persona_id  UUID         NOT NULL,
     estado      BOOLEAN      NOT NULL DEFAULT true,
     contrasenia VARCHAR(255) NOT NULL,
@@ -37,14 +37,14 @@ ALTER TABLE IF EXISTS public.cliente
 
 CREATE TABLE IF NOT EXISTS public.cuenta
 (
-    id            UUID        NOT NULL,                   -- ID generado desde la aplicación
-    id_persona    UUID        NOT NULL,                   -- Relación con Persona
+    id            UUID        NOT NULL,
+    id_persona    UUID        NOT NULL,
     numero_cuenta VARCHAR(20) NOT NULL UNIQUE,
     tipo_cuenta   VARCHAR(50) NOT NULL,
     saldo_inicial NUMERIC(15, 2)       DEFAULT 0,
     estado        BOOLEAN     NOT NULL DEFAULT true,
     CONSTRAINT cuenta_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_cuenta_persona FOREIGN KEY (id_persona) -- Relación con Persona
+    CONSTRAINT fk_cuenta_persona FOREIGN KEY (id_persona)
     REFERENCES public.persona (id)
     ON UPDATE NO ACTION
     ON DELETE CASCADE
@@ -55,14 +55,14 @@ ALTER TABLE IF EXISTS public.cuenta
 
 CREATE TABLE IF NOT EXISTS public.movimientos
 (
-    id               UUID           NOT NULL, -- ID generado desde la aplicación
+    id               UUID           NOT NULL,
     id_cuenta        UUID           NOT NULL REFERENCES cuenta (id),
     fecha_movimiento TIMESTAMP      NOT NULL DEFAULT NOW(),
     tipo_movimiento  VARCHAR(50)    NOT NULL,
     valor            NUMERIC(15, 2) NOT NULL,
     saldo            NUMERIC(15, 2) NOT NULL,
     CONSTRAINT movimientos_pkey PRIMARY KEY (id),
-    CHECK (valor <> 0),
+    CHECK (valor <> 0)
     );
 
 CREATE TABLE IF NOT EXISTS public.auditoria_transacciones

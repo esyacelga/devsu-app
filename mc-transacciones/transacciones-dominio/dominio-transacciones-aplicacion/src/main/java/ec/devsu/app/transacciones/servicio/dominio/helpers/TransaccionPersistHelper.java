@@ -46,7 +46,9 @@ public class TransaccionPersistHelper {
         } catch (IllegalArgumentException ex) {
             throw new TransaccionDomainException("Tipo de movimiento incorrecto, tipo de movimiento correcto es DEBITO o CREDITO ", ex);
         }
-
+        if (requestMovimiento.getValor().compareTo(BigDecimal.ONE) < 0) {
+            throw new TransaccionDomainException("El valor no puede ser negativo o no puede ser 0");
+        }
         if (tipoMovimiento == TipoMovimiento.DEBITO &&
                 saldoActual.compareTo(requestMovimiento.getValor()) < 0) {
             throw new TransaccionDomainException("Saldo insuficiente");
@@ -72,6 +74,8 @@ public class TransaccionPersistHelper {
         } catch (IllegalArgumentException ex) {
             throw new CuentaDomainException("El tipo de cuenta valido es AHORROS, CORRIENTE", ex);
         }
+        if (cuentaActualizacion.getSaldo().compareTo(BigDecimal.ZERO) < 0)
+            throw new CuentaDomainException("El saldo no puede ser negativo ");
         CuentaDto cuentaDto = cuentaRepository.actualizarCuenta(CuentaDto.builder()
                 .uuidCuenta(cuenta.getUuidCuenta())
                 .numeroCuenta(cuentaActualizacion.getNumeroCuenta())
@@ -92,6 +96,8 @@ public class TransaccionPersistHelper {
         } catch (IllegalArgumentException ex) {
             throw new CuentaDomainException("El tipo de cuenta debe ser DEBITO, CREDITO", ex);
         }
+        if (requestCuenta.getSaldo().compareTo(BigDecimal.ZERO) < 0)
+            throw new CuentaDomainException("El saldo no puede ser negativo ");
 
         Integer numeroCuenta = cuentaRepository.obtenerSiguienteSecuencial();
         if (numeroCuenta == null) {
