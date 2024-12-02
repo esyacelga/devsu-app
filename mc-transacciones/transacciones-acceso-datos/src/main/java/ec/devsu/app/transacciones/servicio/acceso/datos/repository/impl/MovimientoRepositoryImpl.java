@@ -22,7 +22,7 @@ public class MovimientoRepositoryImpl implements IMovimientoRepository {
 
     @Override
     public Optional<Movimientos> buscarMovimientoPorId(UUID uuidMovimiento) {
-        return Optional.of(entityManager.find(Movimientos.class, uuidMovimiento));
+        return Optional.ofNullable(entityManager.find(Movimientos.class, uuidMovimiento));
     }
 
     @Override

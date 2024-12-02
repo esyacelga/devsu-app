@@ -1,6 +1,5 @@
 package ec.devsu.app.transacciones.servicio.dominio.dto.request;
 
-import ec.devsu.app.excepcion.comun.dominio.valor.TipoCuenta;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,4 +17,6 @@ public class RequestCuentaActualizacion {
     private final String tipoCuenta;
     @NotNull(message = "El saldo no puede estar en nulo")
     private final BigDecimal saldo;
+    @NotNull(message = "El estado no puede ser nulo")
+    private final String estado;
 }

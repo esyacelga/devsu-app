@@ -72,11 +72,10 @@ public class TransaccionPersistHelper {
         } catch (IllegalArgumentException ex) {
             throw new CuentaDomainException("El tipo de cuenta valido es AHORROS, CORRIENTE", ex);
         }
-
-
         CuentaDto cuentaDto = cuentaRepository.actualizarCuenta(CuentaDto.builder()
                 .uuidCuenta(cuenta.getUuidCuenta())
                 .numeroCuenta(cuentaActualizacion.getNumeroCuenta())
+                .estado(stringToBoolean(cuentaActualizacion.getEstado()))
                 .tipoCuenta(TipoCuenta.valueOf(cuentaActualizacion.getTipoCuenta()))
                 .saldo(cuentaActualizacion.getSaldo())
                 .build());
@@ -106,7 +105,15 @@ public class TransaccionPersistHelper {
                 .build();
     }
 
+    public boolean stringToBoolean(String value) {
+        if (!"1".equals(value) && !"0".equals(value) && !"true".equalsIgnoreCase(value) && !"false".equalsIgnoreCase(value)) {
+            throw new CuentaDomainException("Entrada inválida, el estado puede ser 'true', 'false', '1' o '0'");
+        }
+        return "1".equals(value) || "true".equalsIgnoreCase(value);
+    }
+
     public String rellenarConCeros(int numero) {
         return String.format("%05d", numero);
     }
 }
+

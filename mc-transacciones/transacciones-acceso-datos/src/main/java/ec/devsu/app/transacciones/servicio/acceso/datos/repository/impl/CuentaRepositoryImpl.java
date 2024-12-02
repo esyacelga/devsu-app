@@ -32,7 +32,7 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
 
     @Override
     public Optional<BigDecimal> obtenerSaldoActual(String numeroCuenta) {
-        String hql = "SELECT c.saldoInicialEstado FROM Cuenta c WHERE c.numeroCuenta = :numeroCuenta";
+        String hql = "SELECT c.saldoInicial FROM Cuenta c WHERE c.numeroCuenta = :numeroCuenta";
         return Optional.of(entityManager.createQuery(hql, BigDecimal.class)
                 .setParameter("numeroCuenta", numeroCuenta)
                 .getSingleResult());
@@ -42,9 +42,11 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
     @Override
     public Cuenta actualizarCuenta(Cuenta cuenta) throws EntityNotFoundException {
         String hql = "UPDATE Cuenta c " +
-                "SET c.tipoCuenta = :tipoCuenta, c.numeroCuenta = :numeroCuenta, c.saldoInicialEstado=:saldo WHERE c.id = :id";
+                "SET c.tipoCuenta = :tipoCuenta, c.estado=:estado, " +
+                "c.numeroCuenta = :numeroCuenta, c.saldoInicial=:saldo WHERE c.id = :id";
         int updatedRows = entityManager.createQuery(hql)
                 .setParameter("tipoCuenta", cuenta.getTipoCuenta())
+                .setParameter("estado", cuenta.getEstado())
                 .setParameter("saldo", cuenta.getSaldoInicial())
                 .setParameter("numeroCuenta", cuenta.getNumeroCuenta())
                 .setParameter("id", cuenta.getId())
@@ -57,7 +59,7 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
 
     @Override
     public void actualizarNuevoSaldo(String numeroCuenta, BigDecimal nuevoSaldo) throws EntityNotFoundException {
-        String hql = "UPDATE Cuenta c SET c.saldoInicialEstado = :nuevoSaldo WHERE c.numeroCuenta = :numeroCuenta";
+        String hql = "UPDATE Cuenta c SET c.saldoInicial = :nuevoSaldo WHERE c.numeroCuenta = :numeroCuenta";
         int filasActualizadas = entityManager.createQuery(hql)
                 .setParameter("nuevoSaldo", nuevoSaldo)
                 .setParameter("numeroCuenta", numeroCuenta)

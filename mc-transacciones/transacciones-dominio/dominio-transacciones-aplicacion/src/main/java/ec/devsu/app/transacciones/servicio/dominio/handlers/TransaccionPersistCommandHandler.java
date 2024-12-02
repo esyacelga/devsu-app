@@ -35,11 +35,7 @@ public class TransaccionPersistCommandHandler {
     }
 
     public ResponseCuenta actualizarCuentaPersona(RequestCuentaActualizacion cuentaActualizacion) throws CuentaDomainException {
-        return transaccionPersistHelper.actualizarCuentaPersona(RequestCuentaActualizacion.builder()
-                .tipoCuenta(cuentaActualizacion.getTipoCuenta())
-                .numeroCuenta(cuentaActualizacion.getNumeroCuenta())
-                .saldo(cuentaActualizacion.getSaldo())
-                .build());
+        return transaccionPersistHelper.actualizarCuentaPersona(cuentaActualizacion);
     }
 
     public MovimientoRegistroDto actualizarMovimiento(RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException {

@@ -38,6 +38,7 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
                 .id(UUID.randomUUID())
                 .numeroCuenta(numeroCuenta)
                 .persona(personaBD)
+                .estado(true)
                 .saldoInicial(requestCuenta.getSaldo())
                 .build());
         return CuentaDto.builder()
@@ -65,6 +66,7 @@ public class CuentaDomainRepositoryImpl implements ICuentaDomainRepository {
                 .tipoCuenta(cuentaDto.getTipoCuenta().getTipo())
                 .numeroCuenta(cuentaDto.getNumeroCuenta())
                 .saldoInicial(cuentaDto.getSaldo())
+                .estado(cuentaDto.getEstado())
                 .id(cuentaDto.getUuidCuenta())
                 .build());
         return CuentaDto.builder()

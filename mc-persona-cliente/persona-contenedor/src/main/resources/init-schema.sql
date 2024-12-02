@@ -63,7 +63,6 @@ CREATE TABLE IF NOT EXISTS public.movimientos
     saldo            NUMERIC(15, 2) NOT NULL,
     CONSTRAINT movimientos_pkey PRIMARY KEY (id),
     CHECK (valor <> 0),
-    CHECK (tipo_movimiento IN ('Débito', 'Crédito'))
     );
 
 CREATE TABLE IF NOT EXISTS public.auditoria_transacciones
