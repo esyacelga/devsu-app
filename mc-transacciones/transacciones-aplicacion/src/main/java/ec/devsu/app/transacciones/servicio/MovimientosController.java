@@ -36,7 +36,7 @@ public class MovimientosController {
     }
 
     @GetMapping("/{uuidMovimiento}")
-    public MovimientoRegistroDto movimientoRegistroDto(@PathVariable String uuidMovimiento) throws TransaccionDomainException {
+    public MovimientoRegistroDto buscarMovimientoPorId(@PathVariable String uuidMovimiento) throws TransaccionDomainException {
         return transaccionesAppService.buscarMovimientoPorId(UUID.fromString(uuidMovimiento));
     }
 
