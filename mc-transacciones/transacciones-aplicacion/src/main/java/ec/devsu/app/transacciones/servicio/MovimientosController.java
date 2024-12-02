@@ -1,5 +1,6 @@
 package ec.devsu.app.transacciones.servicio;
 
+import ec.devsu.app.transacciones.servicio.dominio.dto.MovientoReporte;
 import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
@@ -11,6 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -34,4 +39,6 @@ public class MovimientosController {
     public MovimientoRegistroDto movimientoRegistroDto(@PathVariable String uuidMovimiento) throws TransaccionDomainException {
         return transaccionesAppService.buscarMovimientoPorId(UUID.fromString(uuidMovimiento));
     }
+
+
 }

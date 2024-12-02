@@ -5,6 +5,7 @@ import ec.devsu.app.transacciones.servicio.acceso.datos.entity.Cuenta;
 import ec.devsu.app.transacciones.servicio.acceso.datos.entity.Movimientos;
 import ec.devsu.app.transacciones.servicio.acceso.datos.repository.ICuentaRepository;
 import ec.devsu.app.transacciones.servicio.acceso.datos.repository.IMovimientoRepository;
+import ec.devsu.app.transacciones.servicio.dominio.dto.MovientoReporte;
 import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimiento;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestMovimientoActualizacion;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -70,5 +72,10 @@ public class TransaccionesDomainRepositoryImpl implements ITransaccionesDomainRe
         return MovimientoRegistroDto.builder()
                 .uuidMovimiento(movimientos.getId())
                 .build();
+    }
+
+    @Override
+    public List<MovientoReporte> obtenerMovimientosPorRango(LocalDateTime fechaInicial, LocalDateTime fechaFinal) throws TransaccionDomainException {
+        return movimientoRepository.obtenerMovimientosPorRango(fechaInicial, fechaFinal);
     }
 }

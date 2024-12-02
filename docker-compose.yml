@@ -20,33 +20,7 @@ services:
       - red-devsu-app
     restart: always
 
-  persona-contenedor:
-    image: persona-contenedor:v1
-    container_name: persona-contenedor
-    build:
-      context: ./mc-persona-cliente/persona-contenedor
-      dockerfile: Dockerfile
-    depends_on:
-      postgres-db:
-        condition: service_healthy
-    ports:
-      - "8181:8181"
-    networks:
-      - red-devsu-app
 
-  transacciones-contenedor:
-    image: transacciones-contenedor:v1
-    container_name: transacciones-contenedor
-    build:
-      context: ./mc-transacciones/transacciones-contenedor
-      dockerfile: Dockerfile
-    depends_on:
-      postgres-db:
-        condition: service_healthy
-    ports:
-      - "8182:8182"
-    networks:
-      - red-devsu-app
 
 volumes:
   postgres-data:

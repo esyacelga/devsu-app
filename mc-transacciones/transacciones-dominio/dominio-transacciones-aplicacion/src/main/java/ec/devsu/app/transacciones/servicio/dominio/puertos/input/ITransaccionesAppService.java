@@ -1,6 +1,7 @@
 package ec.devsu.app.transacciones.servicio.dominio.puertos.input;
 
 import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
+import ec.devsu.app.transacciones.servicio.dominio.dto.MovientoReporte;
 import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActualizacion;
@@ -12,6 +13,8 @@ import ec.devsu.app.transacciones.servicio.dominio.exception.CuentaDomainExcepti
 import ec.devsu.app.transacciones.servicio.dominio.exception.TransaccionDomainException;
 import jakarta.validation.Valid;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public interface ITransaccionesAppService {
@@ -27,4 +30,6 @@ public interface ITransaccionesAppService {
     public MovimientoRegistroDto buscarMovimientoPorId(@Valid UUID uuidMovimiento) throws TransaccionDomainException;
 
     public ResponseMovimiento actualizarMovimiento(@Valid RequestMovimientoActualizacion requestMovimiento) throws TransaccionDomainException;
+
+    public List<MovientoReporte> obtenerMovimientosPorRango(@Valid LocalDateTime fechaInicial, @Valid LocalDateTime fechaFinal) throws TransaccionDomainException;
 }

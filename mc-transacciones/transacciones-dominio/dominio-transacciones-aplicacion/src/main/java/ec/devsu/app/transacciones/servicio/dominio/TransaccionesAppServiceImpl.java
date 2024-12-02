@@ -1,6 +1,7 @@
 package ec.devsu.app.transacciones.servicio.dominio;
 
 import ec.devsu.app.transacciones.servicio.dominio.dto.CuentaDto;
+import ec.devsu.app.transacciones.servicio.dominio.dto.MovientoReporte;
 import ec.devsu.app.transacciones.servicio.dominio.dto.MovimientoRegistroDto;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuenta;
 import ec.devsu.app.transacciones.servicio.dominio.dto.request.RequestCuentaActualizacion;
@@ -18,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -53,6 +56,11 @@ public class TransaccionesAppServiceImpl implements ITransaccionesAppService {
         return ResponseMovimiento.builder()
                 .mensaje("Movimiento actualizado con exito")
                 .uuidMovimiento(movimientoRegistroDto.getUuidMovimiento()).build();
+    }
+
+    @Override
+    public List<MovientoReporte> obtenerMovimientosPorRango(LocalDateTime fechaInicial, LocalDateTime fechaFinal) throws TransaccionDomainException {
+        return transaccionesQueryCommandHandler.obtenerMovimientosPorRango(fechaInicial, fechaFinal);
     }
 
     @Override
