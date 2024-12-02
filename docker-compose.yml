@@ -1,46 +1,23 @@
 version: "3.9"
 services:
-  postgres-db:
+  postgres-devsu-db:
     image: postgres:15
-    container_name: postgres-devsu
+    container_name: postgres-devsu-bd
+    build:
+      context: ./modulo-comun/comun-acceso-datos
+      dockerfile: Dockerfile
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
     networks:
-      - red-devsu-micro-servicio
+      - red-devsu-app
     restart: always
 
-  persona-contenedor:
-    image: persona-contenedor:v1
-    container_name: persona-contenedor
-    build:
-      context: ./mc-persona-cliente/persona-contenedor
-      dockerfile: Dockerfile
-    depends_on:
-      postgres-db:
-        condition: service_healthy
-    ports:
-      - "8181:8181"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://persona-contenedor:8181/actuator/health"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-    networks:
-      - red-devsu-micro-servicio
+
 volumes:
   postgres-data:
 
 networks:
-  red-devsu-micro-servicio:
+  red-devsu-app:
     driver: bridge

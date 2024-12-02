@@ -1,5 +1,3 @@
-ALTER USER postgres WITH PASSWORD 'seya1922';
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS public.persona
