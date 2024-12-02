@@ -75,6 +75,7 @@ public class TransaccionAppTest {
                         .tipoCuenta(TipoCuenta.AHORROS)
                         .saldo(new BigDecimal(1000))
                         .identificacion("1721737243")
+                        .estado(true)
                         .numeroCuenta("00001")
                         .build());
 
@@ -82,6 +83,7 @@ public class TransaccionAppTest {
                 .thenReturn(CuentaDto.builder()
                         .saldo(new BigDecimal(1000))
                         .numeroCuenta("00001")
+                        .estado(true)
                         .tipoCuenta(TipoCuenta.AHORROS)
                         .identificacion("1721737243")
                         .uuidCuenta(UUID.randomUUID())
@@ -90,6 +92,7 @@ public class TransaccionAppTest {
         ResponseCuenta responseCuenta = transaccionesAppService.actualizarCuentaPersona(RequestCuentaActualizacion.builder()
                 .tipoCuenta(TipoCuenta.AHORROS.getTipo())
                 .numeroCuenta("00001")
+                .estado("true")
                 .saldo(new BigDecimal(1000))
                 .build());
         assertEquals("Cuenta actualizada exitosamente", responseCuenta.getMensaje());
