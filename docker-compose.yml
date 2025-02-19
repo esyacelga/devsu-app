@@ -1,0 +1,79 @@
+version: "3.9"
+services:
+  postgres-db:
+    image: postgres:15
+    container_name: postgres-banca
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - red-banca-app
+    restart: always
+
+  persona-contenedor:
+    image: persona-contenedor:v1
+    container_name: persona-contenedor
+    build:
+      context: ./mc-persona-cliente/persona-contenedor
+      dockerfile: Dockerfile
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    ports:
+      - "8181:8181"
+    networks:
+      - red-banca-app
+
+  transacciones-contenedor:
+    image: transacciones-contenedor:v1
+    container_name: transacciones-contenedor
+    build:
+      context: ./mc-transacciones/transacciones-contenedor
+      dockerfile: Dockerfile
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    ports:
+      - "8182:8182"
+    networks:
+      - red-banca-app
+  zookeeper:
+    extends:
+      file: mc-infraestructura/zookeeper.yml
+      service: zookeeper
+  kafka-broker-1:
+    extends:
+      file: mc-infraestructura/kafka_cluster.yml
+      service: kafka-broker-1
+  kafka-broker-2:
+    extends:
+      file: mc-infraestructura/kafka_cluster.yml
+      service: kafka-broker-2
+  kafka-broker-3:
+    extends:
+      file: mc-infraestructura/kafka_cluster.yml
+      service: kafka-broker-3
+  kafka-manager:
+    extends:
+      file: mc-infraestructura/kafka_cluster.yml
+      service: kafka-manager
+  schema-registry:
+    extends:
+      file: mc-infraestructura/kafka_cluster.yml
+      service: schema-registry
+volumes:
+  postgres-data:
+
+networks:
+  red-banca-app:
+    driver: bridge

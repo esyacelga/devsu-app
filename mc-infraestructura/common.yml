@@ -1,0 +1,5 @@
+version: '3.7'
+
+networks:
+  red-banca-app:
+    driver: bridge
