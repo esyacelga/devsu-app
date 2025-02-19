@@ -38,7 +38,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteAppService.buscarClientePorId(clienteId));
     }
 
-    @GetMapping("buscarClientePorIdentificacion/{identificacion}")
+    @GetMapping("/buscarClientePorIdentificacion/{identificacion}")
     public ResponseEntity<ResponseClientePersona> buscarClientePorIdentificacion(@PathVariable String identificacion) {
         return ResponseEntity.ok(clienteAppService.buscarClientePorIdentificacion(identificacion));
     }

@@ -8,12 +8,11 @@ import ec.banca.app.persona.servicio.dominio.puertos.output.IClientePersonaDomai
 import ec.banca.app.persona.servicio.dominio.puertos.output.IPersonaDomainRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -22,6 +21,7 @@ import static org.mockito.Mockito.when;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(classes = PersonaTestConfiguration.class)
 @Slf4j
+@Tag("unit")
 public class PersonaAppTest {
 
     @Autowired
